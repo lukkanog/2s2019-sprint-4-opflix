@@ -5,6 +5,7 @@ import favoritosScreen from "./pages/Favoritos";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
 
 const AuthStack = createStackNavigator(
@@ -18,27 +19,41 @@ const AuthStack = createStackNavigator(
     }
 );
 
+
+// PARA ADMS
 const Drawer = createDrawerNavigator(
     {
         Main: {
             screen: mainScreen,
 
         },
-        Favoritos: {
-            screen: favoritosScreen,
-        }
+        
     }, {
     initialRouteName: "Main",
     drawerPosition: "right",
 }
 );
 
-// const BottomTabNavigator = create
+
+
+// PARA USUARIOS
+// const BottomTabNavigator = createBottomTabNavigator(
+//     {
+//         Main: {
+//             screen: mainScreen,
+
+//         },
+//         Favoritos: {
+//             screen: favoritosScreen,
+//         } 
+//     }
+// )
 
 export default createAppContainer(createSwitchNavigator(
     {
         AuthStack,
-        Drawer
+        Drawer,
+        // BottomTabNavigator
     }, {
     initialRouteName: "AuthStack"
 }

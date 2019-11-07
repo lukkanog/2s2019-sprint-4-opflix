@@ -1,10 +1,14 @@
 import React,{Component} from "react";
-import {Text} from "react-native";
+import {Text, SafeAreaView} from "react-native";
+import Nav from "../components/Nav";
 
 class Main extends Component{
     render(){
         return(
-            <Text onPress={this.props.navigation.openDrawer}>Main</Text>
+            <SafeAreaView>
+                <Nav/>
+                <Text onPress={this.props.navigation.openDrawer}>Main</Text>
+            </SafeAreaView>
         )
     }
 }

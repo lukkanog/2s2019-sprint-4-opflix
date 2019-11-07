@@ -7,8 +7,10 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    Stylesheet,
-    AsyncStorage
+    StyleSheet,
+    AsyncStorage,
+    ImageBackground,
+    StatusBar
     } from "react-native";
 
 import Axios from "axios";
@@ -69,29 +71,56 @@ class Login extends Component{
         }
     }
 
-    render(){
+    render(){ 
         return(
             <SafeAreaView>
-                <SafeAreaView>
+                {/* <StatusBar style={styles.container} backgroundColor="#330711" barStyle="light-content"/> */}
+                <StatusBar hidden={true}/>
+                <ImageBackground source={require("../assets/img/fundo-banner.png")} style={{width : "100%", height : "100%"}}>
+                    <View  style={styles.container}>
+                        <View>
+                            <Text style={styles.titulo}>OpFlix</Text>
+                            <View>
+                                <TextInput placeholder="Email" placeholderTextColor="#FFF"  onChangeText={email => this.setState({email})} />    
+                                <TextInput  placeholder="Senha" placeholderTextColor="#FFF" onChangeText={email => this.setState({email}) } />    
+                            </View>
+                            <TouchableOpacity onPress={this._fazerLogin} style={styles.submit}>
+                                <Text styles={styles.textoSubmit}>Entrar</Text>
+                            </TouchableOpacity>
 
-                    <Text h1>OpFlix</Text>
-                    <View>
-                        <TextInput placeholder="Email" onChangeText={email => this.setState({email})}/>    
-                        <TextInput placeholder="Senha" onChangeText={email => this.setState({email})}/>    
+                            {this.state.naoFoiEncontrado === true ?
+                                <Text>Email ou senha incorretos</Text>
+                                :
+                                null
+                            }
+                        </View>
                     </View>
-                    <TouchableOpacity onPress={this._fazerLogin}>
-                        <Text>Entrar</Text>
-                    </TouchableOpacity>
-
-                    {this.state.naoFoiEncontrado === true ?
-                        <Text>Email ou senha incorretos</Text>
-                    :
-                        null
-                    }
-
-                </SafeAreaView>
+                </ImageBackground>
             </SafeAreaView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container : {
+        alignItems : "center",
+        justifyContent : "center",
+        height : "100%",
+    },
+    titulo : {
+        color : "#fff",
+        fontSize : 75,
+        // fontWeight : "bold"
+    },
+    submit : {
+        backgroundColor : "#fff",
+        width : "100%",
+    },
+    textoSubmit : {
+        color : "#a60313",
+    },
+    input : {
+        // placeHolderTextColor : "#fff"
+    },
+})
 export default Login;
