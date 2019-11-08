@@ -52,11 +52,16 @@ class Login extends Component{
             if (response.status === 200){
                 let token = response.data.token;
                 this._redirecionarParaMain(token);
-            }else if (response.status === 404){
+            }else if (response.status == 404){
                 this.setState({naoFoiEncontrado : true})
             }
         })
-        .catch(error => console.warn("erro : " + error))
+        .catch(error => {
+            console.warn("erro : " + error)
+            if (error.status == 404){
+                this.setState({naoFoiEncontrado : true})
+            }
+        })
 
     }
 
@@ -78,11 +83,29 @@ class Login extends Component{
                 <StatusBar hidden={true}/>
                 <ImageBackground source={require("../assets/img/fundo-banner.png")} style={{width : "100%", height : "100%"}}>
                     <View  style={styles.container}>
-                        <View>
+                        <View style={styles.content}>
                             <Text style={styles.titulo}>OpFlix</Text>
                             <View>
-                                <TextInput placeholder="Email" placeholderTextColor="#FFF"  onChangeText={email => this.setState({email})} />    
-                                <TextInput  placeholder="Senha" placeholderTextColor="#FFF" onChangeText={email => this.setState({email}) } />    
+                                <TextInput 
+                                keyboardType="email-address"
+                                autoCapitalize="none" 
+                                autoCompleteType="email" 
+                                selectionColor="#fff"
+                                style={styles.input} 
+                                placeholder="Email" 
+                                placeholderTextColor="#FFF"  
+                                maxLength={140}
+                                onChangeText={email => this.setState({email})} 
+                                />    
+                                <TextInput 
+                                style={styles.input}  
+                                placeholder="Senha" 
+                                autoCapitalize="none" 
+                                secureTextEntry={true}
+                                placeholderTextColor="#FFF" 
+                                maxLength={100}
+                                onChangeText={senha => this.setState({senha}) } 
+                                />    
                             </View>
                             <TouchableOpacity onPress={this._fazerLogin} style={styles.submit}>
                                 <Text styles={styles.textoSubmit}>Entrar</Text>
@@ -107,20 +130,36 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         height : "100%",
     },
+    content : {
+        justifyContent : "space-around",
+        alignItems : "center",
+        height : 300,
+    },
     titulo : {
         color : "#fff",
-        fontSize : 75,
+        fontSize : 100,
+        textAlign : "center",
+        marginTop : -50,
         // fontWeight : "bold"
     },
     submit : {
         backgroundColor : "#fff",
-        width : "100%",
+        width : 300,
+        paddingVertical : 10,
+        justifyContent : "center",
+        alignItems : "center",
+        marginTop : 20,
     },
     textoSubmit : {
         color : "#a60313",
+        fontSize : 500,
     },
     input : {
-        // placeHolderTextColor : "#fff"
-    },
+        color : "#fff",
+        borderBottomWidth : 2,   
+        borderBottomColor : "#F2EB12",
+        width : 300,
+        fontSize : 15,
+    }
 })
 export default Login;
