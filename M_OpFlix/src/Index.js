@@ -2,6 +2,7 @@ import React from "react";
 import loginScreen from "./pages/Login";
 import mainScreen from "./pages/Main";
 import favoritosScreen from "./pages/Favoritos";
+import lancamentoScreen from "./pages/Lancamento";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
@@ -21,11 +22,10 @@ const AuthStack = createStackNavigator(
 
 
 // PARA ADMS
-const Drawer = createDrawerNavigator(
+const DrawerNavigator = createDrawerNavigator(
     {
         Main: {
             screen: mainScreen,
-
         },
         
     }, {
@@ -34,26 +34,30 @@ const Drawer = createDrawerNavigator(
 }
 );
 
-
+// let Lancamento = lancamentoScreen
 
 // PARA USUARIOS
-// const BottomTabNavigator = createBottomTabNavigator(
-//     {
-//         Main: {
-//             screen: mainScreen,
+const BottomTabNavigator = createBottomTabNavigator(
+    {
+        Main: {
+            screen: mainScreen,
 
-//         },
-//         Favoritos: {
-//             screen: favoritosScreen,
-//         } 
-//     }
-// )
+        },
+        Favoritos: {
+            screen: favoritosScreen,
+        } 
+    },{
+        initialRouteName : "Main",
+    }
+)
+
 
 export default createAppContainer(createSwitchNavigator(
     {
         AuthStack,
-        Drawer,
-        // BottomTabNavigator
+        DrawerNavigator,
+        BottomTabNavigator,
+        lancamentoScreen
     }, {
     initialRouteName: "AuthStack"
 }

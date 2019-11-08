@@ -69,7 +69,7 @@ class Login extends Component{
         if (token !== null){
             try {
                 await AsyncStorage.setItem("@opflix:token",token)
-                this.props.navigation.navigate("Main");
+                this.props.navigation.navigate("DrawerNavigator");
             } catch (error) {
                 console.warn("caiu no catch")
             }

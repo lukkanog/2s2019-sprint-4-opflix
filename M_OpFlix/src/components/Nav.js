@@ -12,7 +12,6 @@ class Nav extends Component{
                 <TouchableOpacity>
                     <Image source={require("../assets/img/menu-icon.png")} style={{ width: 40, height: 40 }} />
                 </TouchableOpacity>
-
             </View>
         )
     }
