@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  Dimensions
 } from 'react-native';
 
 import {

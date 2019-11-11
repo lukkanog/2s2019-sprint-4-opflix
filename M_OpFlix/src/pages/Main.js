@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { 
+import {
     Text,
     SafeAreaView,
     StatusBar,
@@ -16,7 +16,7 @@ class Main extends Component {
         super();
         this.state = {
             lancamentos: [],
-            favoritos : [],
+            favoritos: [],
         }
     }
 
@@ -25,37 +25,41 @@ class Main extends Component {
         this._carregarLancamentos();
     }
 
+    // componentDidUpdate(){
+    //     this._carregarFavoritos();
+    // }
+
     _carregarLancamentos = async () => {
         await fetch("http://192.168.4.16:5000/api/lancamentos")
             .then(resposta => resposta.json())
             .then(data => this.setState({ lancamentos: data }))
             .catch(error => alert(error))
 
-            
+
     }
 
-    _carregarFavoritos = async() =>{
+    _carregarFavoritos = async () => {
         try {
             let token = await AsyncStorage.getItem("@opflix:token");
 
-            if (token !== null){
-                fetch("http://192.168.4.16:5000/api/favoritos/ids",{
-                    headers:{
-                        "Authorization" : "Bearer " + token,
+            if (token !== null) {
+                fetch("http://192.168.4.16:5000/api/favoritos/ids", {
+                    headers: {
+                        "Authorization": "Bearer " + token,
                     }
                 })
-                .then(resposta => resposta.json())
-                .then(data => {
-                    this.setState({favoritos : data});
-                })
-                .catch(error => alert(error))
+                    .then(resposta => resposta.json())
+                    .then(data => {
+                        this.setState({ favoritos: data });
+                    })
+                    .catch(error => alert(error))
             }
         } catch (error) {
             alert("caiu no trycatch - " + error)
         }
     }
 
-    _foiFavoritado = (idLancamento) => {
+    _foiFavoritado = (idLancamento) =>{
         let bool = false;
         this.state.favoritos.map(element => {
             if (element.idLancamento == idLancamento) {
@@ -64,7 +68,6 @@ class Main extends Component {
             }
         })
         return bool;
-        // return true
     }
 
     _formatarData = (element) => {
@@ -77,13 +80,84 @@ class Main extends Component {
     }
 
 
+    _favoritar = async (id) => {
+        try {
+            let token = await AsyncStorage.getItem("@opflix:token");
+
+            if (token != null) {
+                if (this._foiFavoritado(id) === false) {
+
+                    fetch("http://192.168.4.16:5000/api/favoritos", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                            "Content-type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            idLancamento: id
+                        })
+                    })
+                        // .then(this._adicionarAosFavoritos(id))
+                        .catch(error => alert(error))
+                }
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+
+    _desfavoritar = async (id) => {
+        try {
+            let token = await AsyncStorage.getItem("@opflix:token");
+
+            if (token != null) {
+                if (this._foiFavoritado(id)) {
+
+                    fetch("http://192.168.4.16:5000/api/favoritos/" + id, {
+                        method: "DELETE",
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                        }
+                    })
+                        .then(this._removerDosFavoritos(id))
+                        .catch(error => alert(error))
+                }
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+
+                    // ### ARRUMA #####
+
+    // _adicionarAosFavoritos = (idLancamento) => {
+    //     let lancamentoEscolhido = this.state.lancamentos.find(item => {
+    //         return item.idLancamento == Number(idLancamento)
+    //     });
+
+    //     var lista = this.state.favoritos;
+    //     lista.push(lancamentoEscolhido)
+    //     this.setState({ favoritos: lista });
+    // }
+
+    // _removerDosFavoritos = (idLancamento) => {
+    //     let lista = this.state.favoritos
+    //     lista = lista.filter(element => {
+    //         return element.idLancamento !== Number(idLancamento)
+    //     })
+    //     this.setState({ lancamentos: lista });
+    // }
+
+
 
     render() {
         return (
             <SafeAreaView>
 
                 {/* <Nav/> */}
-                <StatusBar 
+                <StatusBar
                     animated={true}
                     backgroundColor="#A60313"
                     barStyle="light-content"
@@ -124,19 +198,19 @@ class Main extends Component {
                                     </View>
 
                                 </View>
-                                <View  style={styles.flexBoxLancamento}>
+                                <View style={styles.flexBoxLancamento}>
                                     <Text style={styles.data}>{this._formatarData(item)}</Text>
                                     <View style={styles.botoes}>
-                                        {this._foiFavoritado(item.idLancamento) ?
-                                        <TouchableOpacity style={styles.botaoDesfavoritar}>
-                                            <Image style={styles.iconeDesfavoritar} source={require("../assets/img/estrela.png")} />
-                                        </TouchableOpacity>
-                                        :
-                                        <TouchableOpacity style={styles.botaoFavoritar}>
-                                            <Image style={styles.iconeFavoritar} source={require("../assets/img/estrela.png")} />
-                                        </TouchableOpacity>
+                                        {this._foiFavoritado(item.idLancamento) === true ?
+                                            <TouchableOpacity style={styles.botaoDesfavoritar} onPress={() => this._desfavoritar(item.idLancamento)}>
+                                                <Image style={styles.iconeDesfavoritar} source={require("../assets/img/estrela.png")} />
+                                            </TouchableOpacity>
+                                            :
+                                            <TouchableOpacity style={styles.botaoFavoritar} onPress={() => this._favoritar(item.idLancamento)}>
+                                                <Image style={styles.iconeFavoritar} source={require("../assets/img/estrela.png")} />
+                                            </TouchableOpacity>
                                         }
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate("lancamentoScreen",{idLancamento : item.idLancamento})}>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate("lancamentoScreen", { idLancamento: item.idLancamento })}>
                                             <Image style={styles.iconeSeta} source={require("../assets/img/arrow.png")} />
                                         </TouchableOpacity>
                                     </View>
@@ -168,23 +242,23 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold"
     },
-    menuIcon : {
-        width :50,
-        height : 35,
-        zIndex : 1000,
+    menuIcon: {
+        width: 50,
+        height: 35,
+        zIndex: 1000,
     },
 
     tituloPrincipal: {
         textAlign: "center",
-        alignSelf : "center",
+        alignSelf: "center",
         fontWeight: "bold",
         fontSize: 22,
         paddingVertical: 14,
-        width : "90%",
+        width: "90%",
 
-        borderBottomWidth : 3,
-        borderColor : "#A60313",
-        marginBottom : 5,
+        borderBottomWidth: 3,
+        borderColor: "#A60313",
+        marginBottom: 5,
     },
     lista: {
         // alignItems: "center",
@@ -194,33 +268,33 @@ const styles = StyleSheet.create({
     boxLancamento: {
         borderWidth: 1,
         borderRadius: 10,
-        borderColor : "#707070",
-        width : "90%",
+        borderColor: "#707070",
+        width: "90%",
         padding: 10,
-        marginVertical : 5,
-        marginHorizontal : 20,
+        marginVertical: 5,
+        marginHorizontal: 20,
         // marginRight : 100,
     },
-    botaoFavoritar : {
+    botaoFavoritar: {
         // backgroundColor : "#717171",
-        backgroundColor : "#a60313",
-        borderWidth : 0.1,
-        borderRadius : 50,
-        padding : 5,
-        marginRight : 10,
+        backgroundColor: "#a60313",
+        borderWidth: 0.1,
+        borderRadius: 50,
+        padding: 5,
+        marginRight: 10,
 
     },
     iconeFavoritar: {
         height: 25,
         width: 25,
-        tintColor : "#FFF",
+        tintColor: "#FFF",
     },
-    botaoDesfavoritar : {
-        backgroundColor : "#a60313",
-        borderWidth : 0.1,
-        borderRadius : 50,
-        padding : 5,
-        marginRight : 10,
+    botaoDesfavoritar: {
+        backgroundColor: "#a60313",
+        borderWidth: 0.1,
+        borderRadius: 50,
+        padding: 5,
+        marginRight: 10,
     },
     iconeDesfavoritar: {
         height: 25,
@@ -230,36 +304,36 @@ const styles = StyleSheet.create({
         height: 30,
         width: 30,
         transform: [{ rotate: '270deg' }],
-        tintColor : "#999999",
+        tintColor: "#999999",
 
     },
     tituloLancamento: {
         fontWeight: "bold",
         fontSize: 25,
         textAlign: "center",
-        marginBottom : 5,
+        marginBottom: 5,
     },
-    flexBoxLancamento : {
-        alignItems : "center",
-        flexDirection : "row",
-        justifyContent : "space-between",
-        flexWrap : "nowrap",
+    flexBoxLancamento: {
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        flexWrap: "nowrap",
     },
-    botoes : {
-        flexDirection : "row",
-        alignItems : "center",
-        justifyContent : "space-between"
+    botoes: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
-    data : {
-        color : "#11A7F2",
-        fontSize : 20,
-        fontWeight : "bold",
+    data: {
+        color: "#11A7F2",
+        fontSize: 20,
+        fontWeight: "bold",
     },
-    flexTexto : {
-        flexDirection : "row",
+    flexTexto: {
+        flexDirection: "row",
     },
-    textoBold : {
-        fontWeight : "bold",
+    textoBold: {
+        fontWeight: "bold",
     }
 })
 export default Main;

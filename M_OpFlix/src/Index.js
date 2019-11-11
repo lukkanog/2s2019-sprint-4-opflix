@@ -7,7 +7,9 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-
+import iconeHome from "./components/IconeHome";
+import iconeFavoritos from "./components/IconeFavoritos";
+import customDrawer from "./components/CustomDrawer";
 
 const AuthStack = createStackNavigator(
     {
@@ -24,39 +26,70 @@ const AuthStack = createStackNavigator(
 // PARA ADMS
 const DrawerNavigator = createDrawerNavigator(
     {
-        Main: {
+        Home: {
             screen: mainScreen,
-        },
-        
-    }, {
-    initialRouteName: "Main",
-    drawerPosition: "right",
-}
-);
-
-// let Lancamento = lancamentoScreen
-
-// PARA USUARIOS
-const BottomTabNavigator = createBottomTabNavigator(
-    {
-        Main: {
-            screen: mainScreen,
+            navigationOptions: {
+                drawerLabel: "Home",
+                drawerIcon : iconeHome,
+            }
 
         },
         Favoritos: {
             screen: favoritosScreen,
-        } 
-    },{
-        initialRouteName : "Main",
+            navigationOptions: {
+                drawerLabel: "Meus favoritos",
+                drawerIcon : iconeFavoritos,
+            }
+        }
+
+    }, {
+        initialRouteName: "Home",
+        drawerPosition: "right",
+        drawerBackgroundColor: "#a60313",
+        drawerType: "front",
+        drawerLockMode: "unlocked",
+        contentOptions: {
+            activeTintColor: "#F2EB12",
+            inactiveTintColor: "#FFF",
+            activeBackgroundColor: "#87020F",
+        },
+        contentComponent : customDrawer,
     }
-)
+);
+
+// const LancamentosNavigator = createStackNavigator(
+//     {
+//         Home: {
+//             screen : mainScreen,
+//             navigationOptions : {
+//                 header : null,
+//             }
+
+//         },
+//         Lancamento : {
+//             screen : lancamentoScreen,
+//             navigationOptions : {
+//                 title : "OpFlix",
+//                 headerStyle: {
+//                     backgroundColor: '#a60313',
+//                   },
+//                   headerTintColor: '#fff',
+//                   headerTitleStyle: {
+//                     fontWeight: 'bold',
+//                   },
+//             }
+//         }   
+//     },{
+//         initialRouteName : "Home",
+
+//     }
+// )
 
 
 export default createAppContainer(createSwitchNavigator(
     {
         AuthStack,
         DrawerNavigator,
-        BottomTabNavigator,
         lancamentoScreen
     }, {
     initialRouteName: "AuthStack"

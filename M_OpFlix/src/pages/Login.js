@@ -21,7 +21,14 @@ class Login extends Component{
         this.state = {
             // email : null,
             // senha : null,
-            email : "erik@email.com",
+
+
+            //PARA ENTRAR COMO ADM:
+            // email : "erik@email.com",
+            // senha : "123456",
+
+            //PARA ENTRAR COMO USUARIO COMUM:
+            email : "lucas@email.com",
             senha : "123456",
 
             naoFoiEncontrado : false,
@@ -76,10 +83,10 @@ class Login extends Component{
         }
     }
 
+
     render(){ 
         return(
             <SafeAreaView>
-                {/* <StatusBar style={styles.container} backgroundColor="#330711" barStyle="light-content"/> */}
                 <StatusBar hidden={true}/>
                 <ImageBackground source={require("../assets/img/fundo-banner.png")} style={{width : "100%", height : "100%"}}>
                     <View  style={styles.container}>

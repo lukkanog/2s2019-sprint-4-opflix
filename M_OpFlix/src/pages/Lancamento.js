@@ -3,7 +3,6 @@ import {
     Text,
     SafeAreaView,
     StatusBar,
-    FlatList,
     Image,
     View,
     StyleSheet,
@@ -40,7 +39,7 @@ class Lancamento extends Component{
                 .catch(error => alert(error))
             }
         } catch (error) {
-            
+            console.warn(error)
         }
     }
 
@@ -53,23 +52,31 @@ class Lancamento extends Component{
                     backgroundColor="#A60313"
                     barStyle="light-content"
                 />
-
+ 
                 <View style={styles.navContainer}>
                     <View style={styles.logo}>
                         <Image source={require("../assets/img/icon-logo.png")} style={{ width: 50, height: 50 }} />
                         <Text style={styles.textoLogo}>OpFlix</Text>
                     </View>
-                    {/* <TouchableOpacity onPress={this.props.navigation.toggleDrawer}>
-                        <Image source={require("../assets/img/menu-icon.png")} style={styles.menuIcon} />
-                    </TouchableOpacity> */}
                 </View>
                 {/* FIM DO NAV */}
 
                 <View style={styles.flexRow}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Main")}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Home")}>
                         <Image style={styles.seta} source={require("../assets/img/arrow.png")}/>
                     </TouchableOpacity>
                     <Text style={styles.tituloPrincipal}>{this.state.lancamento.titulo}</Text>
+                </View>
+
+                <View>
+                    <Image source={require("../assets/img/jureg-teste.png")} style={{width : 50, height : 60}}/>
+                    
+                    {/* <Text>Plataforma: </Text><Text>{this.state.lancamento.idPlataformaNavigation.nome}</Text>
+                    <Text>Categoria: </Text><Text>{this.state.lancamento.idCategoriaNavigation.nome}</Text>
+                    <Text>Tipo: </Text><Text>{this.state.lancamento.idTipoLancamentoNavigation.nome}</Text> */}
+                    <Text>Duração: </Text><Text>{this.state.lancamento.duracao}</Text>
+                    <Text>Sinopse: </Text><Text>{this.state.lancamento.sinopse}</Text>
+                    
                 </View>
             </SafeAreaView>
         )
@@ -106,7 +113,6 @@ const styles = StyleSheet.create({
         fontSize: 22,
         paddingVertical: 14,
         width : "90%",
-
       
     },
     seta :{
