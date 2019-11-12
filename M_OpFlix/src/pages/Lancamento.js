@@ -34,7 +34,8 @@ class Lancamento extends Component{
                 })
                 .then(resposta => resposta.json())
                 .then(data => {
-                    this.setState({lancamento : data})
+                    this.setState({lancamento : data});
+                    console.warn(this.state.lancamento)
                 })
                 .catch(error => alert(error))
             }
@@ -43,7 +44,17 @@ class Lancamento extends Component{
         }
     }
 
+    _formatarData = (element) => {
+        let data = element.dataLancamento.split("T")[0];
+        let ano = data.split("-")[0];
+        let mes = data.split("-")[1];
+        let dia = data.split("-")[2];
+
+        return (dia + "/" + mes + "/" + ano);
+    }
+
     render(){
+        let teste = this.state.lancamento
         return(
             <SafeAreaView>
                 {/* <Nav/> */}
@@ -76,11 +87,13 @@ class Lancamento extends Component{
                     <Text>Tipo: </Text><Text>{this.state.lancamento.idTipoLancamentoNavigation.nome}</Text> */}
                     <Text>Duração: </Text><Text>{this.state.lancamento.duracao}</Text>
                     <Text>Sinopse: </Text><Text>{this.state.lancamento.sinopse}</Text>
-                    
+                    <Text>{this.state.lancamento.dataLancamento}</Text>
+                    <Text>{this.state.dataLancamento}</Text>
+                    {/* <Text>{this._formatarData(teste)}</Text> */}
                 </View>
             </SafeAreaView>
         )
-    }
+    } 
 }
 
 const styles = StyleSheet.create({

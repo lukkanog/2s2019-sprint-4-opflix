@@ -3,6 +3,7 @@ import loginScreen from "./pages/Login";
 import mainScreen from "./pages/Main";
 import favoritosScreen from "./pages/Favoritos";
 import lancamentoScreen from "./pages/Lancamento";
+import cadastroScreen from "./pages/Cadastro"
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
@@ -19,6 +20,11 @@ const AuthStack = createStackNavigator(
                 header: null,
             }
         },
+        Cadastro : {
+            screen : cadastroScreen,
+        }
+    },{
+        initialRouteName : "Login"
     }
 );
 
@@ -46,7 +52,7 @@ const DrawerNavigator = createDrawerNavigator(
         initialRouteName: "Home",
         drawerPosition: "right",
         drawerBackgroundColor: "#a60313",
-        drawerType: "front",
+        drawerType: "slide",
         drawerLockMode: "unlocked",
         contentOptions: {
             activeTintColor: "#F2EB12",

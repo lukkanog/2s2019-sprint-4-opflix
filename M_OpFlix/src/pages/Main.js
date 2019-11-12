@@ -8,7 +8,8 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    Dimensions
 } from "react-native";
 
 class Main extends Component {
@@ -17,6 +18,7 @@ class Main extends Component {
         this.state = {
             lancamentos: [],
             favoritos: [],
+
         }
     }
 
@@ -48,18 +50,19 @@ class Main extends Component {
                         "Authorization": "Bearer " + token,
                     }
                 })
-                    .then(resposta => resposta.json())
-                    .then(data => {
-                        this.setState({ favoritos: data });
-                    })
-                    .catch(error => alert(error))
+                .then(resposta => resposta.json())
+                .then(data => {
+                    this.setState({ favoritos: data });
+                })
+                .catch(error => alert(error))
+
             }
         } catch (error) {
             alert("caiu no trycatch - " + error)
         }
     }
 
-    _foiFavoritado = (idLancamento) =>{
+    _foiFavoritado(idLancamento){
         let bool = false;
         this.state.favoritos.map(element => {
             if (element.idLancamento == idLancamento) {
@@ -77,6 +80,10 @@ class Main extends Component {
         let dia = data.split("-")[2];
 
         return (dia + "/" + mes + "/" + ano);
+    }
+
+    _mudarDeCor = (event) =>{
+        alert(event.target)
     }
 
 
@@ -97,8 +104,11 @@ class Main extends Component {
                             idLancamento: id
                         })
                     })
-                        // .then(this._adicionarAosFavoritos(id))
-                        .catch(error => alert(error))
+                    .then(() =>{
+                        this._carregarLancamentos();
+                        this._carregarFavoritos();
+                    })
+                    .catch(error => alert(error))
                 }
             }
         } catch (error) {
@@ -120,8 +130,11 @@ class Main extends Component {
                             "Authorization": "Bearer " + token,
                         }
                     })
-                        .then(this._removerDosFavoritos(id))
-                        .catch(error => alert(error))
+                    .then(() =>{
+                        this._carregarLancamentos();
+                        this._carregarFavoritos();
+                    })
+                    .catch(error => alert(error))
                 }
             }
         } catch (error) {
@@ -133,13 +146,7 @@ class Main extends Component {
                     // ### ARRUMA #####
 
     // _adicionarAosFavoritos = (idLancamento) => {
-    //     let lancamentoEscolhido = this.state.lancamentos.find(item => {
-    //         return item.idLancamento == Number(idLancamento)
-    //     });
-
-    //     var lista = this.state.favoritos;
-    //     lista.push(lancamentoEscolhido)
-    //     this.setState({ favoritos: lista });
+        
     // }
 
     // _removerDosFavoritos = (idLancamento) => {
@@ -178,6 +185,7 @@ class Main extends Component {
                 <View >
 
                     <FlatList
+                        style={styles.lista}
                         data={this.state.lancamentos}
                         keyExtractor={item => item.idLancamento.toString()}
                         renderItem={({ item }) => (
@@ -261,9 +269,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     lista: {
-        // alignItems: "center",
-        // width: "100%",
-        // paddingHorizontal : "5%"
+        height : Dimensions.get("window").height
     },
     boxLancamento: {
         borderWidth: 1,

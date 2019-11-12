@@ -100,7 +100,7 @@ class Login extends Component{
                                 selectionColor="#fff"
                                 style={styles.input} 
                                 placeholder="Email" 
-                                placeholderTextColor="#FFF"  
+                                placeholderTextColor="#FFF" 
                                 maxLength={140}
                                 onChangeText={email => this.setState({email})} 
                                 />    
@@ -116,6 +116,10 @@ class Login extends Component{
                             </View>
                             <TouchableOpacity onPress={this._fazerLogin} style={styles.submit}>
                                 <Text styles={styles.textoSubmit}>Entrar</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.ou}>ou</Text>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate("Cadastro")}>
+                                <Text>Cadastre-se</Text>
                             </TouchableOpacity>
 
                             {this.state.naoFoiEncontrado === true ?
@@ -151,7 +155,7 @@ const styles = StyleSheet.create({
     },
     submit : {
         backgroundColor : "#fff",
-        width : 300,
+        width : 280,
         paddingVertical : 10,
         justifyContent : "center",
         alignItems : "center",
@@ -165,7 +169,14 @@ const styles = StyleSheet.create({
         color : "#fff",
         borderBottomWidth : 2,   
         borderBottomColor : "#F2EB12",
-        width : 300,
+        width : 280,
+        fontSize : 15,
+        fontWeight : "800",
+        paddingBottom : 1,
+        paddingLeft : 0,
+    },
+    ou : {
+        color : "#F2EB12",
         fontSize : 15,
     }
 })

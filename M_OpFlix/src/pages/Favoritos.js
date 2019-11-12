@@ -14,6 +14,74 @@ import {
 
 
 class Favoritos extends Component{
+    constructor(){
+        super();
+        this.state = {
+            favoritos : null,
+            listaEstaVazia : false
+        }
+    }
+
+    componentDidMount(){
+        this._carregarFavoritos();
+    }
+
+    _carregarFavoritos = async () => {
+        try {
+            let token = await AsyncStorage.getItem("@opflix:token");
+
+            if (token !== null) {
+                fetch("http://192.168.4.16:5000/api/favoritos/", {
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                    }
+                })
+                .then(resposta => resposta.json())
+                .then(data => {
+                    this.setState({ favoritos: data });
+                    if (!this.state.favoritos.length >= 1){
+                        this.setState({listaEstaVazia : true})
+                    }
+                })
+                .catch(error => alert(error))
+
+            }
+        } catch (error) {
+            alert("caiu no trycatch - " + error)
+        }
+    }
+
+    _formatarData = (element) => {
+        let data = element.dataLancamento.split("T")[0];
+        let ano = data.split("-")[0];
+        let mes = data.split("-")[1];
+        let dia = data.split("-")[2];
+
+        return (dia + "/" + mes + "/" + ano);
+    }
+
+    _desfavoritar = async (id) => {
+        try {
+            let token = await AsyncStorage.getItem("@opflix:token");
+
+            if (token != null) {
+
+                fetch("http://192.168.4.16:5000/api/favoritos/" + id, {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                    }
+                })
+                .then(this._carregarFavoritos)
+                // .then(this._removerDosFavoritos(id))
+                .catch(error => alert(error))
+                
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
+    
     render(){
         return(
             <SafeAreaView>
@@ -34,6 +102,51 @@ class Favoritos extends Component{
                     </TouchableOpacity>
                 </View>
                 {/* FIM DO NAV */}
+
+                <Text style={styles.tituloPrincipal}>Favoritos</Text>
+
+                <View >
+                    <FlatList
+                    data={this.state.favoritos}
+                    keyExtractor={item => item.idLancamento.toString()}
+                    renderItem={({ item }) => (
+                        
+                        <View style={styles.boxLancamento}>
+                                <Text style={styles.tituloLancamento}>{item.titulo}</Text>
+                                <View>
+                                    <View style={styles.flexTexto}>
+                                        <Text style={styles.textoBold}>Plataforma: </Text>
+                                        <Text>{item.idPlataformaNavigation.nome}</Text>
+                                    </View>
+                                    <View style={styles.flexTexto}>
+                                        <Text style={styles.textoBold}>Gênero: </Text>
+                                        <Text>{item.idCategoriaNavigation.nome}</Text>
+                                    </View>
+                                    <View style={styles.flexTexto}>
+                                        <Text style={styles.textoBold}>Tipo: </Text>
+                                        <Text>{item.idTipoLancamentoNavigation.nome}</Text>
+                                    </View>
+
+                                </View>
+                                <View style={styles.flexBoxLancamento}>
+                                    <Text style={styles.data}>{this._formatarData(item)}</Text>
+                                    <View style={styles.botoes}>
+                                            <TouchableOpacity style={styles.botaoDesfavoritar} onPress={() => this._desfavoritar(item.idLancamento)}>
+                                                <Image style={styles.iconeDesfavoritar} source={require("../assets/img/estrela.png")} />
+                                            </TouchableOpacity>
+                                            
+                                        
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate("lancamentoScreen", { idLancamento: item.idLancamento })}>
+                                            <Image style={styles.iconeSeta} source={require("../assets/img/arrow.png")} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                            
+                            )}
+                            />
+                          
+                </View>
             </SafeAreaView>
         )
     }
