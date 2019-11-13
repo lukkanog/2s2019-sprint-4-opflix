@@ -72,14 +72,22 @@ class Favoritos extends Component{
                         "Authorization": "Bearer " + token,
                     }
                 })
-                .then(this._carregarFavoritos)
-                // .then(this._removerDosFavoritos(id))
+                // .then(this._carregarFavoritos)
+                .then(this._removerDosFavoritos(id))
                 .catch(error => alert(error))
                 
             }
         } catch (error) {
             alert(error)
         }
+    }
+
+    _removerDosFavoritos = (id) =>{
+        let lista = this.state.favoritos;
+        lista = lista.filter(element =>{
+            return element.idLancamento !== id;
+        })
+        this.setState({favoritos : lista})
     }
     
     render(){

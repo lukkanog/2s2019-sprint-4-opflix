@@ -23,8 +23,8 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        this._carregarFavoritos();
         this._carregarLancamentos();
+        this._carregarFavoritos();
     }
 
     // componentDidUpdate(){
@@ -36,7 +36,6 @@ class Main extends Component {
             .then(resposta => resposta.json())
             .then(data => this.setState({ lancamentos: data }))
             .catch(error => alert(error))
-
 
     }
 
@@ -105,8 +104,8 @@ class Main extends Component {
                         })
                     })
                     .then(() =>{
-                        this._carregarLancamentos();
                         this._carregarFavoritos();
+                        this._carregarLancamentos();
                     })
                     .catch(error => alert(error))
                 }

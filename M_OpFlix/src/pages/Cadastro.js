@@ -26,8 +26,6 @@ class Cadastro extends Component {
             senha: null,
             confirmaSenha: null,
             dataNascimento: null,
-            deuErro: false,
-            mensagemErro: null,
         }
     }
 
@@ -57,12 +55,18 @@ class Cadastro extends Component {
                         }
                     })
                     .catch(error => alert("Erro: " + error))
+
+
                 }else{
                     alert("Confirme sua senha direito po :/")
                 }
+
             }else{
                 alert("Preencha todos os campos corretamente")
             }
+
+
+
         } catch (error) {
             alert("Erro: " + error)
         }
@@ -77,14 +81,15 @@ class Cadastro extends Component {
                     source={require("../assets/img/fundo-banner.png")}
                     style={{ width: "100%", height: "100%" }}>
 
-                    <Text>Cadastre-se</Text>
+                    <Text style={styles.titulo}>Insira suas informações</Text>
                     <SafeAreaView style={styles.form}>
 
                         <DatePicker
+                            onDateChange={(dataNascimento) => { this.setState({dataNascimento}) }}
                             style={styles.inputData}
                             date={this.state.date}
                             mode="date"
-                            placeholder="Data de nascimento"
+                            placeholder="Data de nascimento:"
                             format="DD-MM-YYYY"
                             minDate="01-01-1901"
                             maxDate={"01-01-2020"}
@@ -95,14 +100,15 @@ class Cadastro extends Component {
                                     position: 'absolute',
                                     left: 0,
                                     top: 4,
-                                    marginLeft: 0
+                                    marginLeft: 0,
+
                                 },
                                 dateInput: {
-                                    marginLeft: 36
-                                }
+                                    marginLeft: 36,
+                                },
+
                                 // ... You can check the source to find the other keys.
                             }}
-                        // onDateChange={(dataNascimento) => { this.setState({dataNascimento}) }}
                         />
                         <TextInput
                             placeholder="Nome Completo"
@@ -167,9 +173,8 @@ const styles = StyleSheet.create({
     },
     titulo: {
         color: "#fff",
-        fontSize: 100,
+        fontSize: 25,
         textAlign: "center",
-        marginTop: -50,
         // fontWeight : "bold"
     },
     submit: {
