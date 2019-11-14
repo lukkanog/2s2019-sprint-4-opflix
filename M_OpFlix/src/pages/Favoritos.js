@@ -1,4 +1,4 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import {
     Text,
     SafeAreaView,
@@ -13,16 +13,16 @@ import {
 
 
 
-class Favoritos extends Component{
-    constructor(){
+class Favoritos extends Component {
+    constructor() {
         super();
         this.state = {
-            favoritos : null,
-            listaEstaVazia : false
+            favoritos: null,
+            listaEstaVazia: false
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this._carregarFavoritos();
     }
 
@@ -36,14 +36,14 @@ class Favoritos extends Component{
                         "Authorization": "Bearer " + token,
                     }
                 })
-                .then(resposta => resposta.json())
-                .then(data => {
-                    this.setState({ favoritos: data });
-                    if (!this.state.favoritos.length >= 1){
-                        this.setState({listaEstaVazia : true})
-                    }
-                })
-                .catch(error => alert(error))
+                    .then(resposta => resposta.json())
+                    .then(data => {
+                        this.setState({ favoritos: data });
+                        if (!this.state.favoritos.length >= 1) {
+                            this.setState({ listaEstaVazia: true })
+                        }
+                    })
+                    .catch(error => alert(error))
 
             }
         } catch (error) {
@@ -72,26 +72,26 @@ class Favoritos extends Component{
                         "Authorization": "Bearer " + token,
                     }
                 })
-                // .then(this._carregarFavoritos)
-                .then(this._removerDosFavoritos(id))
-                .catch(error => alert(error))
-                
+                    // .then(this._carregarFavoritos)
+                    .then(this._removerDosFavoritos(id))
+                    .catch(error => alert(error))
+
             }
         } catch (error) {
             alert(error)
         }
     }
 
-    _removerDosFavoritos = (id) =>{
+    _removerDosFavoritos = (id) => {
         let lista = this.state.favoritos;
-        lista = lista.filter(element =>{
+        lista = lista.filter(element => {
             return element.idLancamento !== id;
         })
-        this.setState({favoritos : lista})
+        this.setState({ favoritos: lista })
     }
-    
-    render(){
-        return(
+
+    render() {
+        return (
             <SafeAreaView>
                 {/* <Nav/> */}
                 <StatusBar
@@ -115,45 +115,51 @@ class Favoritos extends Component{
 
                 <View >
                     <FlatList
-                    data={this.state.favoritos}
-                    keyExtractor={item => item.idLancamento.toString()}
-                    renderItem={({ item }) => (
-                        
-                        <View style={styles.boxLancamento}>
+                        data={this.state.favoritos}
+                        keyExtractor={item => item.idLancamento.toString()}
+                        renderItem={({ item }) => (
+
+                            <View style={styles.boxLancamento}>
                                 <Text style={styles.tituloLancamento}>{item.titulo}</Text>
                                 <View>
                                     <View style={styles.flexTexto}>
                                         <Text style={styles.textoBold}>Plataforma: </Text>
-                                        <Text>{item.idPlataformaNavigation.nome}</Text>
+                                        <Text style={styles.caracteristica}>{item.idPlataformaNavigation.nome}</Text>
                                     </View>
                                     <View style={styles.flexTexto}>
                                         <Text style={styles.textoBold}>Gênero: </Text>
-                                        <Text>{item.idCategoriaNavigation.nome}</Text>
+                                        <Text style={styles.caracteristica}>{item.idCategoriaNavigation.nome}</Text>
                                     </View>
                                     <View style={styles.flexTexto}>
                                         <Text style={styles.textoBold}>Tipo: </Text>
-                                        <Text>{item.idTipoLancamentoNavigation.nome}</Text>
+                                        <Text style={styles.caracteristica}>{item.idTipoLancamentoNavigation.nome}</Text>
                                     </View>
 
                                 </View>
                                 <View style={styles.flexBoxLancamento}>
                                     <Text style={styles.data}>{this._formatarData(item)}</Text>
                                     <View style={styles.botoes}>
-                                            <TouchableOpacity style={styles.botaoDesfavoritar} onPress={() => this._desfavoritar(item.idLancamento)}>
-                                                <Image style={styles.iconeDesfavoritar} source={require("../assets/img/estrela.png")} />
-                                            </TouchableOpacity>
-                                            
-                                        
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate("lancamentoScreen", { idLancamento: item.idLancamento })}>
+                                        <TouchableOpacity style={styles.botaoDesfavoritar} onPress={() => this._desfavoritar(item.idLancamento)}>
+                                            <Image style={styles.iconeDesfavoritar} source={require("../assets/img/estrela.png")} />
+                                        </TouchableOpacity>
+
+
+                                        <TouchableOpacity
+                                            onPress={() => this.props.navigation.navigate("lancamentoScreen", {
+                                                idLancamento: item.idLancamento,
+                                                nomeCategoria: item.idCategoriaNavigation.nome,
+                                                nomePlataforma: item.idPlataformaNavigation.nome,
+                                                tipo: item.idTipoLancamentoNavigation.nome,
+                                            })}>
                                             <Image style={styles.iconeSeta} source={require("../assets/img/arrow.png")} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
-                            
-                            )}
-                            />
-                          
+
+                        )}
+                    />
+
                 </View>
             </SafeAreaView>
         )
@@ -260,7 +266,7 @@ const styles = StyleSheet.create({
     },
     data: {
         color: "#11A7F2",
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: "bold",
     },
     flexTexto: {
@@ -268,6 +274,10 @@ const styles = StyleSheet.create({
     },
     textoBold: {
         fontWeight: "bold",
+        fontSize : 18,
+    },
+    caracteristica : {
+        fontSize : 18,
     }
 })
 

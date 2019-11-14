@@ -65,7 +65,7 @@ class Plataformas extends Component {
             })
             .then(resposta =>{
                 if (resposta.status == 200){
-                    alert("Plataforma " + this.state.nomePlataforma + " Cadastrada com sucesso");
+                    alert("Plataforma \"" + this.state.nomePlataforma + "\" Cadastrada com sucesso");
                     this.setState({nomePlataforma : null});
                 }
             })
@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: "#707070",
-        minWidth: "40%",
-        maxWidth: "40%",
+        width: "40%",
+        minWidth : 140, 
         padding: 10,
         marginVertical: 5,
         marginHorizontal: 20,

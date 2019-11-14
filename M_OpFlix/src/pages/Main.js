@@ -193,15 +193,15 @@ class Main extends Component {
                                 <View>
                                     <View style={styles.flexTexto}>
                                         <Text style={styles.textoBold}>Plataforma: </Text>
-                                        <Text>{item.idPlataformaNavigation.nome}</Text>
+                                        <Text style={styles.caracteristica}>{item.idPlataformaNavigation.nome}</Text>
                                     </View>
                                     <View style={styles.flexTexto}>
                                         <Text style={styles.textoBold}>Gênero: </Text>
-                                        <Text>{item.idCategoriaNavigation.nome}</Text>
+                                        <Text style={styles.caracteristica}>{item.idCategoriaNavigation.nome}</Text>
                                     </View>
                                     <View style={styles.flexTexto}>
                                         <Text style={styles.textoBold}>Tipo: </Text>
-                                        <Text>{item.idTipoLancamentoNavigation.nome}</Text>
+                                        <Text style={styles.caracteristica}>{item.idTipoLancamentoNavigation.nome}</Text>
                                     </View>
 
                                 </View>
@@ -217,7 +217,13 @@ class Main extends Component {
                                                 <Image style={styles.iconeFavoritar} source={require("../assets/img/estrela.png")} />
                                             </TouchableOpacity>
                                         }
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate("lancamentoScreen", { idLancamento: item.idLancamento })}>
+                                        <TouchableOpacity 
+                                            onPress={() => this.props.navigation.navigate("lancamentoScreen", { 
+                                            idLancamento: item.idLancamento,
+                                            nomeCategoria : item.idCategoriaNavigation.nome,
+                                            nomePlataforma : item.idPlataformaNavigation.nome,
+                                            tipo : item.idTipoLancamentoNavigation.nome,
+                                            })}>
                                             <Image style={styles.iconeSeta} source={require("../assets/img/arrow.png")} />
                                         </TouchableOpacity>
                                     </View>
@@ -331,7 +337,7 @@ const styles = StyleSheet.create({
     },
     data: {
         color: "#11A7F2",
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: "bold",
     },
     flexTexto: {
@@ -339,6 +345,10 @@ const styles = StyleSheet.create({
     },
     textoBold: {
         fontWeight: "bold",
+        fontSize : 18,
+    },
+    caracteristica : {
+        fontSize : 18,
     }
 })
 export default Main;

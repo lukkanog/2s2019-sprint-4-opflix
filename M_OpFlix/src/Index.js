@@ -110,8 +110,8 @@ const AdmDrawerNavigator = createDrawerNavigator(
         Plataformas : {
             screen : plataformasScreen,
             navigationOptions : {
-                drawerLabel : "Plataformas",
-                drawerIcon : iconePlataformas
+                drawerLabel : "Administrar Plataformas",
+                drawerIcon : iconePlataformas,
             }
         }
     },{

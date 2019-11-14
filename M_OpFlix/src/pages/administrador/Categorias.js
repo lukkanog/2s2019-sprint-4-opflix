@@ -10,7 +10,8 @@ import {
     AsyncStorage,
     StyleSheet,
     StatusBar,
-    Dimensions
+    Dimensions,
+    ScrollView
 } from "react-native"
 
 class Categorias extends Component {
@@ -65,7 +66,7 @@ class Categorias extends Component {
             })
             .then(resposta =>{
                 if (resposta.status == 200){
-                    alert("Categoria " + this.state.nomeCategoria + " Cadastrada com sucesso")
+                    alert("Categoria \"" + this.state.nomeCategoria + "\" Cadastrada com sucesso");
                     this.setState({nomeCategoria : null})
                 }
             })
@@ -121,7 +122,7 @@ class Categorias extends Component {
                         alignItems: "center",
                         width: "90%",
                         justifyContent: "center",
-                        height: Dimensions.get("window").height,
+                        height: Dimensions.get("window").height - 50,
                         justifyContent : "flex-start",
                     }}
                     renderItem={({ item }) => (
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     lista: {
-        // height : Dimensions.get("window").height + 300
+        height : Dimensions.get("screen").height,
         // height : 2000,
         // flexDirection : "row",
         // flexWrap : "wrap",
@@ -186,8 +187,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         borderColor: "#707070",
-        minWidth: "40%",
-        maxWidth: "40%",
+        width: "40%",
+        minWidth : 140, 
         padding: 10,
         marginVertical: 5,
         marginHorizontal: 20,

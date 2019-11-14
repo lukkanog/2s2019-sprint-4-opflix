@@ -67,7 +67,6 @@ class Dashboard extends Component {
                                 source={require("../../assets/img/lancamentos-icon.png")}
                                 style={{ width: 50, height: 50, }}
                             />
-
                             <Text>Lançamentos</Text>
                         </TouchableOpacity>
 
@@ -76,27 +75,26 @@ class Dashboard extends Component {
                                 source={require("../../assets/img/categorias-icon.png")}
                                 style={{ width: 50, height: 50, }}
                             />
-
                             <Text>Categorias</Text>
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("Plataformas")}>
                             <Image
                                 source={require("../../assets/img/plataformas-icon.png")}
                                 style={{ width: 50, height: 50, }}
                             />
-
                             <Text>Plataformas</Text>
                         </TouchableOpacity>
+
                         <TouchableOpacity>
                             <Image
                                 source={require("../../assets/img/addUser-icon.png")}
                                 style={{ width: 50, height: 50, }}
                             />
-
                             <Text>Cadastrar usuário/administrador</Text>
                         </TouchableOpacity>
+
                     </View>
                 </View>
             </SafeAreaView>
