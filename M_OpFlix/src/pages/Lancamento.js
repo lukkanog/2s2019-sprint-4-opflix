@@ -60,7 +60,6 @@ class Lancamento extends Component {
     }
 
     render() {
-        let teste = this.state.lancamento
         return (
             <SafeAreaView>
                 {/* <Nav/> */}

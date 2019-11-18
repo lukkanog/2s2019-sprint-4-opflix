@@ -62,7 +62,7 @@ class Dashboard extends Component {
                 <Text style={styles.tituloPrincipal}>Administrador</Text>
                 <View>
                     <View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("AdmLancamentos")}>
                             <Image
                                 source={require("../../assets/img/lancamentos-icon.png")}
                                 style={{ width: 50, height: 50, }}

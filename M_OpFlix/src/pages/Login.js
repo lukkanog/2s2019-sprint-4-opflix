@@ -25,12 +25,12 @@ class Login extends Component{
 
 
             //PARA ENTRAR COMO ADM:
-            // email : "erik@email.com",
-            // senha : "123456",
+            email : "erik@email.com",
+            senha : "123456",
 
             //PARA ENTRAR COMO USUARIO COMUM:
-            email : "lucas@email.com",
-            senha : "123456",
+            // email : "lucas@email.com",
+            // senha : "123456",
 
             naoFoiEncontrado : false,
         }

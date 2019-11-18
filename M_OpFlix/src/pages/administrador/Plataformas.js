@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     lista: {
-        // height : Dimensions.get("window").height + 300
+        height: Dimensions.get("window").height - 180,
         // height : 2000,
         // flexDirection : "row",
         // flexWrap : "wrap",

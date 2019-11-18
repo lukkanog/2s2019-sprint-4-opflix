@@ -14,6 +14,8 @@ import cadastroScreen from "./pages/Cadastro";
 import dashboardScreen from "./pages/administrador/Dashboard";
 import categoriasScreen from "./pages/administrador/Categorias";
 import plataformasScreen from "./pages/administrador/Plataformas";
+import editarScreen from "./pages/administrador/EditarLancamento";
+import admLancamentosScreen from "./pages/administrador/AdmLancamentos";
 
 import iconeHome from "./components/IconeHome";
 import iconeFavoritos from "./components/IconeFavoritos";
@@ -113,9 +115,17 @@ const AdmDrawerNavigator = createDrawerNavigator(
                 drawerLabel : "Administrar Plataformas",
                 drawerIcon : iconePlataformas,
             }
+        },
+        AdmLancamentos : {
+            screen : admLancamentosScreen,
+            navigationOptions : {
+                drawerLabel : "Administrar Lançamentos",
+                drawerIcon : iconeLancamentos,
+            }
         }
     },{
         initialRouteName: "Dashboard",
+        order : ["Dashboard","AdmLancamentos","Categorias","Plataformas"],
         unmountInactiveRoutes : true,
         drawerPosition: "right",
         drawerBackgroundColor: "#a60313",
@@ -143,6 +153,7 @@ export default createAppContainer(createSwitchNavigator(
         DrawerNavigator,
         AdmDrawerNavigator,
         lancamentoScreen,
+        editarScreen,
     }, {
     initialRouteName: "AuthStack"
 }

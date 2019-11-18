@@ -133,7 +133,7 @@ class Categorias extends Component {
                             </View>
                         </View>
                     )}
-                />
+                    />
             </SafeAreaView>
         )
     }
@@ -177,10 +177,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     lista: {
-        height : Dimensions.get("screen").height,
-        // height : 2000,
-        // flexDirection : "row",
-        // flexWrap : "wrap",
+        height: Dimensions.get("window").height - 180,
         marginLeft: 20,
     },
     box: {

@@ -25,7 +25,7 @@ class Cadastro extends Component {
             email: null,
             senha: null,
             confirmaSenha: null,
-            dataNascimento: null,
+            // dataNascimento: "20-06-2002",
         }
     }
 
@@ -83,11 +83,11 @@ class Cadastro extends Component {
 
                     <Text style={styles.titulo}>Insira suas informações</Text>
                     <SafeAreaView style={styles.form}>
-
+                    
                         <DatePicker
                             onDateChange={(dataNascimento) => { this.setState({dataNascimento}) }}
                             style={styles.inputData}
-                            date={this.state.date}
+                            date={this.state.dataNascimento}
                             mode="date"
                             placeholder="Data de nascimento:"
                             format="DD-MM-YYYY"

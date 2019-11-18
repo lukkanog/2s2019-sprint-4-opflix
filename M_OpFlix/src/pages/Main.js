@@ -103,7 +103,7 @@ class Main extends Component {
                             idLancamento: id
                         })
                     })
-                    .then(() =>{
+                    .then(() => {
                         this._carregarFavoritos();
                         this._carregarLancamentos();
                     })
@@ -130,9 +130,10 @@ class Main extends Component {
                         }
                     })
                     .then(() =>{
-                        this._carregarLancamentos();
                         this._carregarFavoritos();
+                        this._carregarLancamentos();
                     })
+                    .then(this.forceUpdate())
                     .catch(error => alert(error))
                 }
             }
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     lista: {
-        height : Dimensions.get("window").height
+        height: Dimensions.get("window").height - 180,
     },
     boxLancamento: {
         borderWidth: 1,
