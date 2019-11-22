@@ -16,6 +16,7 @@ import categoriasScreen from "./pages/administrador/Categorias";
 import plataformasScreen from "./pages/administrador/Plataformas";
 import editarScreen from "./pages/administrador/EditarLancamento";
 import admLancamentosScreen from "./pages/administrador/AdmLancamentos";
+import cadastroLancamentoScreen from "./pages/administrador/CadastroLancamento";
 
 import iconeHome from "./components/IconeHome";
 import iconeFavoritos from "./components/IconeFavoritos";
@@ -23,6 +24,7 @@ import IconeAdmin from "./components/IconeAdmin";
 import iconeCategorias from "./components/IconeCategorias";
 import iconePlataformas from "./components/IconePlataformas";
 import iconeLancamentos from "./components/IconeLancamentos";
+import iconeAdicionar from "./components/IconeAdicionar";
 
 import customDrawer from "./components/CustomDrawer";
 
@@ -122,10 +124,17 @@ const AdmDrawerNavigator = createDrawerNavigator(
                 drawerLabel : "Administrar Lançamentos",
                 drawerIcon : iconeLancamentos,
             }
+        },
+        CadastroLancamento : {
+            screen : cadastroLancamentoScreen,
+            navigationOptions:{
+                drawerLabel : "Cadastrar Lançamento",
+                drawerIcon : iconeAdicionar,
+            }
         }
     },{
         initialRouteName: "Dashboard",
-        order : ["Dashboard","AdmLancamentos","Categorias","Plataformas"],
+        order : ["Dashboard","CadastroLancamento","AdmLancamentos","Categorias","Plataformas",],
         unmountInactiveRoutes : true,
         drawerPosition: "right",
         drawerBackgroundColor: "#a60313",

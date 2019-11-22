@@ -77,14 +77,23 @@ class Dashboard extends Component {
                             />
                             <Text>Categorias</Text>
                         </TouchableOpacity>
-                    </View>
-                    <View>
+
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("Plataformas")}>
                             <Image
                                 source={require("../../assets/img/plataformas-icon.png")}
                                 style={{ width: 50, height: 50, }}
                             />
                             <Text>Plataformas</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("CadastrarLancamento")}>
+                            <Image
+                                source={require("../../assets/img/adicionarLancamento-icon.png")}
+                                style={{ width: 50, height: 50, }}
+                            />
+                            <Text>Cadastrar lançamento</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity>

@@ -143,21 +143,11 @@ class Main extends Component {
     }
 
 
-                    // ### ARRUMA #####
-
-    // _adicionarAosFavoritos = (idLancamento) => {
-        
+    // _pintarDeBranco = (event) =>{
+    //     event.target.style = {
+    //         tintColor : "#FFF"
+    //     }
     // }
-
-    // _removerDosFavoritos = (idLancamento) => {
-    //     let lista = this.state.favoritos
-    //     lista = lista.filter(element => {
-    //         return element.idLancamento !== Number(idLancamento)
-    //     })
-    //     this.setState({ lancamentos: lista });
-    // }
-
-
 
     render() {
         return (
@@ -211,7 +201,10 @@ class Main extends Component {
                                     <View style={styles.botoes}>
                                         {this._foiFavoritado(item.idLancamento) === true ?
                                             <TouchableOpacity style={styles.botaoDesfavoritar} onPress={() => this._desfavoritar(item.idLancamento)}>
-                                                <Image style={styles.iconeDesfavoritar} source={require("../assets/img/estrela.png")} />
+                                                <Image 
+                                                style={styles.iconeDesfavoritar} 
+                                                source={require("../assets/img/estrela.png")}
+                                                />
                                             </TouchableOpacity>
                                             :
                                             <TouchableOpacity style={styles.botaoFavoritar} onPress={() => this._favoritar(item.idLancamento)}>

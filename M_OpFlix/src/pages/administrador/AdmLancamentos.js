@@ -91,6 +91,14 @@ class AdmLancamentos extends Component {
                 {/* FIM DO NAV */}
 
                 <Text style={styles.tituloPrincipal}>Lançamentos</Text>
+                
+                {/* <TouchableOpacity style={styles.boxIcon}>
+                    <Text style={{fontSize : 18,}}>Adicionar lançamento</Text>
+                    <Image 
+                        source={require("../../assets/img/adicionarLancamento-icon.png")}
+                        style={styles.iconCadastrar}
+                    />
+                </TouchableOpacity> */}
 
                 <FlatList
                     style={styles.lista}
@@ -233,6 +241,20 @@ const styles = StyleSheet.create({
     },
     caracteristica: {
         fontSize: 18,
+    },
+    boxIcon : {
+        textAlign : "right",
+        flexDirection : "row",
+        justifyContent  : "flex-end",
+        alignItems : "center",
+        backgroundColor : "#a60313",
+        borderRadius : 15,
+        width : "90%",
+    },
+    iconCadastrar : {
+        height : 35,
+        width : 35,
+        marginHorizontal : "5%"
     }
 })
 

@@ -25,9 +25,29 @@ class Cadastro extends Component {
             email: null,
             senha: null,
             confirmaSenha: null,
-            // dataNascimento: "20-06-2002",
+            dataNascimento: null,
         }
     }
+
+    _dataParaFormatoJson = (data) =>{
+        let dia = data.split("-")[0]
+        let mes = data.split("-")[1]
+        let ano = data.split("-")[2]
+
+        return (mes + "-" + dia + "-" + ano)
+    }
+
+    _formatarData(dataRecebida) {
+
+        if (dataRecebida !== undefined && dataRecebida !== null) {
+            let data = dataRecebida.split("T")[0];
+            let dia = data.split("-")[0];
+            let mes = data.split("-")[1];
+            let ano = data.split("-")[2];
+            return (dia + "-" + mes + "-" + ano);
+        }
+    }
+
 
 
     _fazerCadastro = async () => {
@@ -46,7 +66,7 @@ class Cadastro extends Component {
                             nome : this.state.nome,
                             email : this.state.email,
                             senha : this.state.senha,
-                            dataNascimento : this.state.dataNascimento,
+                            dataNascimento : this._dataParaFormatoJson(this.state.dataNascimento),
                         })
                     })
                     .then(response => {
@@ -87,9 +107,10 @@ class Cadastro extends Component {
                         <DatePicker
                             onDateChange={(dataNascimento) => { this.setState({dataNascimento}) }}
                             style={styles.inputData}
-                            date={this.state.dataNascimento}
+                            date={this.state.dataNascimento !== null ? this._formatarData(this.state.dataNascimento) : null}
                             mode="date"
-                            placeholder="Data de nascimento:"
+                            placeholder="Data de nascimento"
+                            placeholderTextColor="#FFF"
                             format="DD-MM-YYYY"
                             minDate="01-01-1901"
                             maxDate={"01-01-2020"}
