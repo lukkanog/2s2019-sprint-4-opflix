@@ -9,7 +9,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     AsyncStorage,
-    Dimensions
+    Dimensions,
+    Modal
 } from "react-native";
 
 class AdmLancamentos extends Component {
@@ -17,6 +18,9 @@ class AdmLancamentos extends Component {
         super();
         this.state = {
             lancamentos: null,
+
+            exibindoModal : false,
+            confirmaExcluir : false,
         }
     }
 
@@ -42,6 +46,8 @@ class AdmLancamentos extends Component {
     }
 
     _excluir = async(id, titulo) => {
+        // this.setState({exibindoModal : true});
+
         try {
             let token = await AsyncStorage.getItem("@opflix:token");
 
@@ -92,14 +98,37 @@ class AdmLancamentos extends Component {
 
                 <Text style={styles.tituloPrincipal}>Lançamentos</Text>
                 
-                {/* <TouchableOpacity style={styles.boxIcon}>
-                    <Text style={{fontSize : 18,}}>Adicionar lançamento</Text>
-                    <Image 
-                        source={require("../../assets/img/adicionarLancamento-icon.png")}
-                        style={styles.iconCadastrar}
-                    />
-                </TouchableOpacity> */}
-
+                {/* <Modal
+                    visible={this.state.exibindoModal}
+                    animationType="fade"
+                    onRequestClose={() => this.setState({exibindoModal : false})}
+                    presentationStyle="formSheet"
+                >   
+                    <Text>a</Text>
+                </Modal> */}
+                {/* ###################################################################################################################
+                #######################
+                #######################
+                #######################
+                #######################
+                ###################################################################################################################
+                #######################
+                #######################
+                #######################
+                #######################
+                #######################
+                #######################
+                ##############################################
+                #######################
+                #######################
+                #######################
+                #######################
+                #######################
+                #######################
+                #######################
+                ##########################################################################################################################################
+                ####################### */}
+                
                 <FlatList
                     style={styles.lista}
                     data={this.state.lancamentos}

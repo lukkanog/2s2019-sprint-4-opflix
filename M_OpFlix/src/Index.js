@@ -17,6 +17,7 @@ import plataformasScreen from "./pages/administrador/Plataformas";
 import editarScreen from "./pages/administrador/EditarLancamento";
 import admLancamentosScreen from "./pages/administrador/AdmLancamentos";
 import cadastroLancamentoScreen from "./pages/administrador/CadastroLancamento";
+import cadastroUsuarioAdmScreen from "./pages/administrador/CadastroUsuario";
 
 import iconeHome from "./components/IconeHome";
 import iconeFavoritos from "./components/IconeFavoritos";
@@ -25,6 +26,9 @@ import iconeCategorias from "./components/IconeCategorias";
 import iconePlataformas from "./components/IconePlataformas";
 import iconeLancamentos from "./components/IconeLancamentos";
 import iconeAdicionar from "./components/IconeAdicionar";
+import iconeAdicionarUsuario from "./components/IconeAddUser";
+
+import SplashScreen from "./pages/SplashScreen";
 
 import customDrawer from "./components/CustomDrawer";
 
@@ -131,10 +135,17 @@ const AdmDrawerNavigator = createDrawerNavigator(
                 drawerLabel : "Cadastrar Lançamento",
                 drawerIcon : iconeAdicionar,
             }
+        },
+        CadastroUsuarioAdm : {
+            screen : cadastroUsuarioAdmScreen,
+            navigationOptions:{
+                drawerLabel : "Cadastrar Usuário",
+                drawerIcon : iconeAdicionarUsuario,
+            }
         }
     },{
         initialRouteName: "Dashboard",
-        order : ["Dashboard","CadastroLancamento","AdmLancamentos","Categorias","Plataformas",],
+        order : ["Dashboard","CadastroLancamento","AdmLancamentos","Categorias","Plataformas","CadastroUsuarioAdm"],
         unmountInactiveRoutes : true,
         drawerPosition: "right",
         drawerBackgroundColor: "#a60313",
@@ -158,12 +169,15 @@ const AdmDrawerNavigator = createDrawerNavigator(
 
 export default createAppContainer(createSwitchNavigator(
     {
+        // SplashScreen,
         AuthStack,
         DrawerNavigator,
         AdmDrawerNavigator,
         lancamentoScreen,
         editarScreen,
     }, {
-    initialRouteName: "AuthStack"
+    initialRouteName : "AuthStack",
+    // initialRouteName: "SplashScreen",
+    // unmountInactiveRoutes : true,
 }
 ));

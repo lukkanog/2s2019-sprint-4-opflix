@@ -44,7 +44,6 @@ class EditarLancamento extends Component {
         this._carregarCategorias();
         this._carregarTipos();
 
-
         let id = this.props.navigation.getParam("idLancamento");
         this._carregarInformacoes(id);
     }
@@ -114,7 +113,7 @@ class EditarLancamento extends Component {
                     }
                 })
                     .then(resposta => resposta.json())
-                    .then(data => this.setState({ 
+                    .then(data => this.setState({
                         lancamento: data,
                         sinopse: data.sinopse,
                         dataLancamento: data.dataLancamento,
@@ -123,8 +122,8 @@ class EditarLancamento extends Component {
                         idPlataforma: data.idPlataforma,
                         idTipoLancamento: data.idTipoLancamento,
                         titulo: data.titulo,
-                }))
-                        
+                    }))
+
                     .catch(error => alert(error))
 
             }
@@ -133,15 +132,6 @@ class EditarLancamento extends Component {
         }
     }
 
-    _formatarData(dataRecebida) {
-        if (dataRecebida !== undefined && dataRecebida !== null) {
-            let data = dataRecebida.split("T")[0];
-            let ano = data.split("-")[0];
-            let mes = data.split("-")[1];
-            let dia = data.split("-")[2];
-            return (dia + "/" + mes + "/" + ano);
-        }
-    }
 
     _editarLancamento = async () => {
         try {
@@ -151,7 +141,7 @@ class EditarLancamento extends Component {
             fetch("http://192.168.4.16:5000/api/lancamentos/" + id, {
                 method: "PUT",
                 headers: {
-                    "Authorization" : "Bearer " + token,
+                    "Authorization": "Bearer " + token,
                     'Content-Type': "application/json",
                     "Accept": "application/json",
                 },
@@ -165,13 +155,13 @@ class EditarLancamento extends Component {
                     duracao: this.state.duracao,
                 })
             })
-            .then(response => {
-                if (response.status == 200){
-                    alert("Alterações salvas com sucesso.")
-                }
-            })
-            .then(this.props.navigation.navigate("AdmLancamentos"))
-            .catch(error => alert(error))
+                .then(response => {
+                    if (response.status == 200) {
+                        alert("Alterações salvas com sucesso.")
+                    }
+                })
+                .then(this.props.navigation.navigate("AdmLancamentos"))
+                .catch(error => alert(error))
 
 
         } catch (error) {
@@ -180,7 +170,7 @@ class EditarLancamento extends Component {
     }
 
 
-    _dataParaFormatoJson = (data) =>{
+    _dataParaFormatoJson = (data) => {
         let dia = data.split("-")[0]
         let mes = data.split("-")[1]
         let ano = data.split("-")[2]
@@ -189,12 +179,11 @@ class EditarLancamento extends Component {
     }
 
     _formatarData(dataRecebida) {
-
         if (dataRecebida !== undefined && dataRecebida !== null) {
             let data = dataRecebida.split("T")[0];
-            let dia = data.split("-")[0];
+            let ano = data.split("-")[0];
             let mes = data.split("-")[1];
-            let ano = data.split("-")[2];
+            let dia = data.split("-")[2];
             return (dia + "-" + mes + "-" + ano);
         }
     }
@@ -308,7 +297,7 @@ class EditarLancamento extends Component {
 
                         <DatePicker
                             onDateChange={(dataLancamento) => { this.setState({ dataLancamento }) }}
-                            date={this.state.dataLancamento !== "" ? this._formatarData(this.state.dataLancamento) : this._formatarData(this.state.lancamento.dataLancamento)}
+                            date={this.state.dataLancamento !== "" ? this._formatarData(this.state.dataLancamento) : null}
                             mode="date"
                             placeholder="Data de lançamento:"
                             format="DD-MM-YYYY"

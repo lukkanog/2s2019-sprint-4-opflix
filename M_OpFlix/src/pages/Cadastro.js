@@ -28,8 +28,7 @@ class Cadastro extends Component {
             dataNascimento: null,
         }
     }
-
-    _dataParaFormatoJson = (data) =>{
+    _dataParaFormatoJson = (data) => {
         let dia = data.split("-")[0]
         let mes = data.split("-")[1]
         let ano = data.split("-")[2]
@@ -38,15 +37,15 @@ class Cadastro extends Component {
     }
 
     _formatarData(dataRecebida) {
-
         if (dataRecebida !== undefined && dataRecebida !== null) {
             let data = dataRecebida.split("T")[0];
-            let dia = data.split("-")[0];
+            let ano = data.split("-")[0];
             let mes = data.split("-")[1];
-            let ano = data.split("-")[2];
+            let dia = data.split("-")[2];
             return (dia + "-" + mes + "-" + ano);
         }
     }
+
 
 
 

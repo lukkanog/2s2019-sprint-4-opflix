@@ -23,6 +23,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
+        
         this._carregarLancamentos();
         this._carregarFavoritos();
     }
