@@ -1,85 +1,111 @@
-// import React, { Component } from "react";
-// import JwtDecode from "jwt-decode";
-// import {
-//     Text,
-//     SafeAreaView,
-//     StatusBar,
-//     FlatList,
-//     Image,
-//     View,
-//     StyleSheet,
-//     TouchableOpacity,
-//     AsyncStorage,
-//     Dimensions
-// } from "react-native";
+import React, { Component } from "react";
+import JwtDecode from "jwt-decode";
+import {
+    Text,
+    SafeAreaView,
+    StatusBar,
+    FlatList,
+    Image,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    AsyncStorage,
+    Dimensions,
+    ImageBackground,
+} from "react-native";
 
-// class SplashScreen extends Component {
+class SplashScreen extends Component {
 
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             timer : null,   
-//             redirectTo: null,
-//             erro : null,
-//         }
-//     }
-
-//     componentDidMount() {
-//         this._redirecionar();
-
-//     }
+    constructor(props) {
+        super(props);
+        this.state = {
+            timer: null,
+            erro: null,
+        }
+    }
 
 
 
+    componentDidMount() {
+        // Start counting when the page is loaded
+        this.timeoutHandle = setTimeout(() => {
+            this._redirecionar()
+        }, 2500);
+    }
 
-//     _redirecionar = async () => {
-//         try {
-//             let token = await AsyncStorage.getItem("@opflix:token");
-//             let usuario = JwtDecode(token);
-//             alert(usuario.nome);
+    componentWillUnmount() {
+        clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
+    }
 
-//             if (token == null || usuario == null ) {
-//                 let timer = setTimeout(this.setState({ redirectTo: "AuthStack" }),4500)
-//                 clearTimeout(timer);
-//             } else if (usuario.permissao == "ADMINISTRADOR") {
+    _redirecionar = async () => {
+        try {
+            var token = await AsyncStorage.getItem("@opflix:token");
+            if (token == undefined) {
+                this.props.navigation.navigate("Login");
+            }
+            var user = JwtDecode(token)
 
-//                 let timer = setTimeout(this.setState({ redirectTo: "AdmDrawerNavigator" }),10500)
-//                 clearTimeout(timer);
+            console.warn(user)
+            switch (user.permissao) {
+                case 'ADMINISTRADOR':
+                    this.props.navigation.navigate("AdmDrawerNavigator");
+                    break;
+                case 'CLIENTE':
+                    this.props.navigation.navigate("DrawerNavigator");
+                    break;
+                default:
+                    this.props.navigation.navigate("Login");
+                    break;
+            }
+        } catch (error) {
+            this.props.navigation.navigate("Login");
+        }
 
-//             } else if (usuario.permissao == "CLIENTE") {
+    }
 
-//                 let timer = setTimeout(this.setState({ redirectTo: "DrawerNavigator" }),4500)
-//                 clearTimeout(timer);
-//             }
+    render() {
+        return (
+            <SafeAreaView style={styles.container}>
+                <StatusBar hidden={true}/>
+                <View style={styles.logo}>
+                    <Image source={require("../assets/img/icon-logo.png")} style={{ width: 100, height: 100 }} />
+                    <Text style={styles.textoLogo}>OpFlix</Text>
+                </View>
+            </SafeAreaView>
 
-//             this.props.navigation.navigate(this.state.redirectTo);
+        )
+    }
+
+}
+
+const styles = StyleSheet.create({
+    container: {
+        height: Dimensions.get("window").height,
+        width: Dimensions.get("window").width,
+        backgroundColor: "#a60313",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    logo: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: 200,
+        alignSelf: "center",
+        marginRight : 100,
+    },
+    textoLogo: {
+        color: "#fff",
+        fontSize: 60,
+        fontWeight: "bold",
+
+    },
+    textoBranco: {
+        color: "#FFF",
+        fontSize: 17
+    },
+
+});
 
 
-//         } catch (error) {
-//             let timer = setTimeout(this.setState({ redirectTo: "AuthStack" }),4500)
-//             clearTimeout(timer);
-//         }
-//     }
 
-//     render() {
-//             return (
-//                 <SafeAreaView>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                     <Text>SPLASHSCREEN</Text>
-//                 </SafeAreaView>
-
-//             )
-//     }
-
-// }
-
-
-
-// export default SplashScreen;
+export default SplashScreen;

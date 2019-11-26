@@ -60,9 +60,9 @@ class Dashboard extends Component {
 
                 <Text>{"Bem vindo, " + this.state.nomeDoAdm}</Text>
                 <Text style={styles.tituloPrincipal}>Administrador</Text>
-                <View>
+                <View style={styles.boxes}>
                     <View>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("AdmLancamentos")}>
+                        <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate("AdmLancamentos")}>
                             <Image
                                 source={require("../../assets/img/lancamentos-icon.png")}
                                 style={{ width: 50, height: 50, }}
@@ -70,7 +70,7 @@ class Dashboard extends Component {
                             <Text>Lançamentos</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("Categorias")}>
+                        <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate("Categorias")}>
                             <Image
                                 source={require("../../assets/img/categorias-icon.png")}
                                 style={{ width: 50, height: 50, }}
@@ -78,7 +78,7 @@ class Dashboard extends Component {
                             <Text>Categorias</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("Plataformas")}>
+                        <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate("Plataformas")}>
                             <Image
                                 source={require("../../assets/img/plataformas-icon.png")}
                                 style={{ width: 50, height: 50, }}
@@ -88,7 +88,7 @@ class Dashboard extends Component {
                     </View>
 
                     <View>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("CadastroLancamento")}>
+                        <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate("CadastroLancamento")}>
                             <Image
                                 source={require("../../assets/img/adicionarLancamento-icon.png")}
                                 style={{ width: 50, height: 50, }}
@@ -96,7 +96,7 @@ class Dashboard extends Component {
                             <Text>Cadastrar lançamento</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate("CadastroUsuarioAdm")}>
+                        <TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate("CadastroUsuarioAdm")}>
                             <Image
                                 source={require("../../assets/img/addUser-icon.png")}
                                 style={{ width: 50, height: 50, }}
@@ -155,7 +155,19 @@ const styles = StyleSheet.create({
         tintColor: "#999999",
 
     },
-
+    boxes :{
+        justifyContent : "space-around",
+        // marginLeft : "10%",
+        flexDirection: "row",
+        flexWrap : "wrap",
+        width : "100%",
+    },
+    box :{
+        width : "40%",
+        flexDirection : "row",
+        alignItems : "center",
+        justifyContent : "space-between"
+    }
 })
 
 export default Dashboard

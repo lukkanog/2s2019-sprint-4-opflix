@@ -19,11 +19,12 @@ class Main extends Component {
             lancamentos: [],
             favoritos: [],
 
+            update: false,
         }
     }
 
     componentDidMount() {
-        
+
         this._carregarLancamentos();
         this._carregarFavoritos();
     }
@@ -50,11 +51,11 @@ class Main extends Component {
                         "Authorization": "Bearer " + token,
                     }
                 })
-                .then(resposta => resposta.json())
-                .then(data => {
-                    this.setState({ favoritos: data });
-                })
-                .catch(error => alert(error))
+                    .then(resposta => resposta.json())
+                    .then(data => {
+                        this.setState({ favoritos: data });
+                    })
+                    .catch(error => alert(error))
 
             }
         } catch (error) {
@@ -62,7 +63,7 @@ class Main extends Component {
         }
     }
 
-    _foiFavoritado(idLancamento){
+    _foiFavoritado(idLancamento) {
         let bool = false;
         this.state.favoritos.map(element => {
             if (element.idLancamento == idLancamento) {
@@ -82,8 +83,15 @@ class Main extends Component {
         return (dia + "/" + mes + "/" + ano);
     }
 
-    _mudarDeCor = (event) =>{
-        alert(event.target)
+    _adicionarAoEstadoFavoritos = (id) => {
+        let lista = this.state.lancamentos;
+        let lancamento = lista.filter(item => {
+            return item.idLancamento == id
+        });
+        let listaFavoritos = this.state.favoritos;
+        listaFavoritos.push(lancamento);
+        this.setState({ favoritos: listaFavoritos });
+        console.warn(listaFavoritos)
     }
 
 
@@ -104,11 +112,13 @@ class Main extends Component {
                             idLancamento: id
                         })
                     })
-                    .then(() => {
-                        this._carregarFavoritos();
-                        this._carregarLancamentos();
-                    })
-                    .catch(error => alert(error))
+                        .then(() => {
+                            this._carregarFavoritos();
+                            this._carregarLancamentos();
+
+                        })
+                        .then(this._adicionarAoEstadoFavoritos(id))
+                        .catch(error => alert(error))
                 }
             }
         } catch (error) {
@@ -130,12 +140,12 @@ class Main extends Component {
                             "Authorization": "Bearer " + token,
                         }
                     })
-                    .then(() =>{
-                        this._carregarFavoritos();
-                        this._carregarLancamentos();
-                    })
-                    .then(this.forceUpdate())
-                    .catch(error => alert(error))
+                        .then(() => {
+                            this._carregarFavoritos();
+                            this._carregarLancamentos();
+                        })
+                        .then(this.forceUpdate())
+                        .catch(error => alert(error))
                 }
             }
         } catch (error) {
@@ -144,11 +154,13 @@ class Main extends Component {
     }
 
 
-    // _pintarDeBranco = (event) =>{
-    //     event.target.style = {
-    //         tintColor : "#FFF"
-    //     }
-    // }
+    _mudarDeCor = (event) => {
+        event.target.style = { tintColor: '#A6' };
+        this.setState({ update: true });
+        this.setState({ update: false });
+    }
+
+
 
     render() {
         return (
@@ -202,22 +214,29 @@ class Main extends Component {
                                     <View style={styles.botoes}>
                                         {this._foiFavoritado(item.idLancamento) === true ?
                                             <TouchableOpacity style={styles.botaoDesfavoritar} onPress={() => this._desfavoritar(item.idLancamento)}>
-                                                <Image 
-                                                style={styles.iconeDesfavoritar} 
-                                                source={require("../assets/img/estrela.png")}
+                                                <Image
+                                                    style={styles.iconeDesfavoritar}
+                                                    source={require("../assets/img/estrela.png")}
                                                 />
                                             </TouchableOpacity>
                                             :
-                                            <TouchableOpacity style={styles.botaoFavoritar} onPress={() => this._favoritar(item.idLancamento)}>
-                                                <Image style={styles.iconeFavoritar} source={require("../assets/img/estrela.png")} />
+                                            <TouchableOpacity
+                                                style={styles.botaoFavoritar}
+                                                onPress={() => { this._favoritar(item.idLancamento) }}
+                                            >
+                                                <Image
+                                                    style={styles.iconeFavoritar}
+                                                    source={require("../assets/img/estrela.png")}
+                                                    onPress={() => this._mudarDeCor}
+                                                />
                                             </TouchableOpacity>
                                         }
-                                        <TouchableOpacity 
-                                            onPress={() => this.props.navigation.navigate("lancamentoScreen", { 
-                                            idLancamento: item.idLancamento,
-                                            nomeCategoria : item.idCategoriaNavigation.nome,
-                                            nomePlataforma : item.idPlataformaNavigation.nome,
-                                            tipo : item.idTipoLancamentoNavigation.nome,
+                                        <TouchableOpacity
+                                            onPress={() => this.props.navigation.navigate("lancamentoScreen", {
+                                                idLancamento: item.idLancamento,
+                                                nomeCategoria: item.idCategoriaNavigation.nome,
+                                                nomePlataforma: item.idPlataformaNavigation.nome,
+                                                tipo: item.idTipoLancamentoNavigation.nome,
                                             })}>
                                             <Image style={styles.iconeSeta} source={require("../assets/img/arrow.png")} />
                                         </TouchableOpacity>
@@ -340,10 +359,10 @@ const styles = StyleSheet.create({
     },
     textoBold: {
         fontWeight: "bold",
-        fontSize : 18,
+        fontSize: 18,
     },
-    caracteristica : {
-        fontSize : 18,
+    caracteristica: {
+        fontSize: 18,
     }
 })
 export default Main;

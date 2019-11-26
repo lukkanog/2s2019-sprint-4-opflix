@@ -42,7 +42,7 @@ customDrawer = (props) => {
                     <TouchableOpacity
                         onPress={async () => {
                             await AsyncStorage.removeItem("@opflix:token");
-                            props.navigation.navigate("AuthStack")
+                            props.navigation.navigate("Login")
                         }}
                         style={styles.botaoSair}
                     >
@@ -70,14 +70,14 @@ const styles = StyleSheet.create({
     logo: {
         flexDirection: "row",
         alignItems: "center",
-        width : 200,
-        alignSelf : "center"
+        width: 200,
+        alignSelf: "center"
     },
     textoLogo: {
         color: "#fff",
         fontSize: 30,
         fontWeight: "bold",
-        
+
     },
     iconeFechar: {
         tintColor: "#FFF",
@@ -86,28 +86,28 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         tintColor: "#FFF",
-        marginRight : 20,
+        marginRight: 20,
     },
     botaoSair: {
         flexDirection: "row",
         tintColor: "#FFF",
-        paddingHorizontal : 15,
-        alignItems : "center",
-        backgroundColor : "#630811",
-        paddingVertical : 15,
+        paddingHorizontal: 15,
+        alignItems: "center",
+        backgroundColor: "#630811",
+        paddingVertical: 15,
         // justifyContent : "space-around"
     },
     textoBranco: {
         color: "#FFF",
-        fontSize : 17
+        fontSize: 17
     },
     x: {
         color: "#FFF",
         fontSize: 20,
     },
-    flexMenu : {
-        justifyContent : "space-between",
-        height : Dimensions.get('window').height - 22,
+    flexMenu: {
+        justifyContent: "space-between",
+        height: Dimensions.get('window').height - 22,
     }
 
 });

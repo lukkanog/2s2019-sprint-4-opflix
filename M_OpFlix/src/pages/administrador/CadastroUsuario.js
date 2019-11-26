@@ -152,10 +152,11 @@ class CadastroUsuario extends Component {
 
 
                 {/* form */}
-                <View>
+                <View style={styles.form}>
                     <View>
                         <Text>Permissão</Text>
                         <Picker 
+                        style={styles.input}
                         onValueChange={idTipoUsuario => this.setState({ idTipoUsuario })}
                         selectedValue={this.state.idTipoUsuario == null ? null : this.state.idTipoUsuario}
 
@@ -175,6 +176,7 @@ class CadastroUsuario extends Component {
                     <View>
                         <Text>Nome Completo</Text>
                         <TextInput
+                        style={styles.input}
                             maxLength={100}
                             onChangeText={nome => this.setState({ nome })}
                         />
@@ -182,6 +184,7 @@ class CadastroUsuario extends Component {
                     <View>
                         <Text>Email</Text>
                         <TextInput
+                        style={styles.input}
                             maxLength={100}
                             onChangeText={email => this.setState({ email })}
                         />
@@ -218,6 +221,8 @@ class CadastroUsuario extends Component {
                     <View>
                         <Text>Senha</Text>
                         <TextInput
+                        style={styles.input}
+                        secureTextEntry={true}
                             maxLength={100}
                             onChangeText={senha => this.setState({ senha })}
                         />
@@ -225,14 +230,16 @@ class CadastroUsuario extends Component {
                     <View>
                         <Text>Confirmar Senha</Text>
                         <TextInput
+                        style={styles.input}
+                            secureTextEntry={true}
                             maxLength={100}
                             onChangeText={confirmaSenha => this.setState({ confirmaSenha })}
                         />
                     </View>
 
 
-                    <TouchableOpacity onPress={this._fazerCadastro}>
-                        <Text>Cadastrar</Text>
+                    <TouchableOpacity style={styles.submit} onPress={this._fazerCadastro}>
+                        <Text style={styles.submitText}>Cadastrar</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -240,7 +247,8 @@ class CadastroUsuario extends Component {
         )
     }
 }
-const styles = StyleSheet.create({
+
+styles = StyleSheet.create({
     navContainer: {
         backgroundColor: "#A60313",
         flexDirection: "row",
@@ -266,40 +274,51 @@ const styles = StyleSheet.create({
 
     tituloPrincipal: {
         textAlign: "center",
+        alignSelf: "center",
         fontWeight: "bold",
         fontSize: 22,
         paddingVertical: 14,
         width: "90%",
 
-    },
-    seta: {
-        height: 30,
-        width: 30,
-        transform: [{ rotate: "90deg" }],
-        tintColor: "#999999",
-    },
-    data: {
-        color: "#11A7F2",
-        fontSize: 25,
-        fontWeight: "bold",
-        alignSelf: "flex-start",
-        marginLeft: "5%"
-    },
-    flexRow: {
-        paddingVertical: 10,
-        alignSelf: "center",
-        width: "90%",
-        flexDirection: "row",
-        alignItems: "center",
         borderBottomWidth: 3,
         borderColor: "#A60313",
         marginBottom: 5,
     },
-    textoBold: {
-        fontWeight: "bold",
-        fontSize: 20,
+    lista: {
+        height: Dimensions.get("window").height - 180,
     },
+    icone: {
+        height: 30,
+        width: 30,
+        tintColor: "#000",
+        // paddingVertical 
+    },
+    form :{
+        width : "85%",
+        marginLeft :"7.5%",
+        justifyContent : "space-around",
+        minHeight : 450,
+    },
+    input :{
+        borderColor : "#000",
+        borderWidth : 1,
+        height : 30,
+    },
+    submit : {
+        width : "85%",
+        backgroundColor : "#a60313",
+        marginLeft :"7.5%",
+        textAlign : "center",
+        justifyContent : "center",
+        alignItems : "center"
+    },
+    submitText : {
+        color : "#F2EB12",
+        fontWeight : "700",
+        fontSize : 20,
+    }
 
 })
+
 
 export default CadastroUsuario;

@@ -1,5 +1,5 @@
 import React from "react";
-import {Image} from "react-native"
+import { Image } from "react-native"
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
@@ -40,21 +40,28 @@ const AuthStack = createStackNavigator(
                 header: null,
             }
         },
-        Cadastro : {
-            screen : cadastroScreen,
-            navigationOptions : {
-                title : "Cadastre-se",
-                headerTitleStyle : {
-                    color : "#FFF",
+        Cadastro: {
+            screen: cadastroScreen,
+            navigationOptions: {
+                title: "Cadastre-se",
+                headerTitleStyle: {
+                    color: "#FFF",
                 },
-                headerStyle : {
-                    backgroundColor : "#a60313"
+                headerStyle: {
+                    backgroundColor: "#a60313"
                 }
             }
+        },
+        Splash: {
+            screen: SplashScreen,
+            navigationOptions: {
+                header: null,
+            }
         }
-    },{
-        initialRouteName : "Login"
-    }
+    }, {
+    initialRouteName: "Splash",
+    unmountInactiveRoutes: true,
+}
 );
 
 //PARA USUARIOS COMUNS
@@ -64,7 +71,7 @@ const DrawerNavigator = createDrawerNavigator(
             screen: mainScreen,
             navigationOptions: {
                 drawerLabel: "Home",
-                drawerIcon : iconeHome,
+                drawerIcon: iconeHome,
             }
 
         },
@@ -72,112 +79,110 @@ const DrawerNavigator = createDrawerNavigator(
             screen: favoritosScreen,
             navigationOptions: {
                 drawerLabel: "Meus favoritos",
-                drawerIcon : iconeFavoritos,
+                drawerIcon: iconeFavoritos,
             }
         }
 
     }, {
-        initialRouteName: "Home",
-        unmountInactiveRoutes : true,
-        drawerPosition: "right",
-        drawerBackgroundColor: "#a60313",
-        drawerType: "slide",
-        drawerLockMode: "unlocked",
-        contentOptions: {
-            activeTintColor: "#F2EB12",
-            inactiveTintColor: "#FFF",
-            activeBackgroundColor: "#87020F",
-            activeLabelStyle : {
-                fontSize : 20,
-            },
-            inactiveLabelStyle : {
-                fontSize : 20,
-            }
+    initialRouteName: "Home",
+    // unmountInactiveRoutes : true,
+    drawerPosition: "right",
+    drawerBackgroundColor: "#a60313",
+    drawerType: "slide",
+    drawerLockMode: "unlocked",
+    contentOptions: {
+        activeTintColor: "#F2EB12",
+        inactiveTintColor: "#FFF",
+        activeBackgroundColor: "#87020F",
+        activeLabelStyle: {
+            fontSize: 20,
         },
-        contentComponent : customDrawer,
-    }
+        inactiveLabelStyle: {
+            fontSize: 20,
+        }
+    },
+    contentComponent: customDrawer,
+}
 );
 
 
 const AdmDrawerNavigator = createDrawerNavigator(
     {
-        Dashboard : {
-            screen : dashboardScreen,
-            navigationOptions : {
-                drawerLabel : "Dashboard",
-                drawerIcon : IconeAdmin,
+        Dashboard: {
+            screen: dashboardScreen,
+            navigationOptions: {
+                drawerLabel: "Dashboard",
+                drawerIcon: IconeAdmin,
             }
         },
-        Categorias : {
-            screen : categoriasScreen,
-            navigationOptions : {
-                drawerLabel : "Administrar Categorias",
-                drawerIcon : iconeCategorias
+        Categorias: {
+            screen: categoriasScreen,
+            navigationOptions: {
+                drawerLabel: "Administrar Categorias",
+                drawerIcon: iconeCategorias
             }
         },
-        Plataformas : {
-            screen : plataformasScreen,
-            navigationOptions : {
-                drawerLabel : "Administrar Plataformas",
-                drawerIcon : iconePlataformas,
+        Plataformas: {
+            screen: plataformasScreen,
+            navigationOptions: {
+                drawerLabel: "Administrar Plataformas",
+                drawerIcon: iconePlataformas,
             }
         },
-        AdmLancamentos : {
-            screen : admLancamentosScreen,
-            navigationOptions : {
-                drawerLabel : "Administrar Lançamentos",
-                drawerIcon : iconeLancamentos,
+        AdmLancamentos: {
+            screen: admLancamentosScreen,
+            navigationOptions: {
+                drawerLabel: "Administrar Lançamentos",
+                drawerIcon: iconeLancamentos,
             }
         },
-        CadastroLancamento : {
-            screen : cadastroLancamentoScreen,
-            navigationOptions:{
-                drawerLabel : "Cadastrar Lançamento",
-                drawerIcon : iconeAdicionar,
+        CadastroLancamento: {
+            screen: cadastroLancamentoScreen,
+            navigationOptions: {
+                drawerLabel: "Cadastrar Lançamento",
+                drawerIcon: iconeAdicionar,
             }
         },
-        CadastroUsuarioAdm : {
-            screen : cadastroUsuarioAdmScreen,
-            navigationOptions:{
-                drawerLabel : "Cadastrar Usuário",
-                drawerIcon : iconeAdicionarUsuario,
+        CadastroUsuarioAdm: {
+            screen: cadastroUsuarioAdmScreen,
+            navigationOptions: {
+                drawerLabel: "Cadastrar Usuário",
+                drawerIcon: iconeAdicionarUsuario,
             }
         }
-    },{
-        initialRouteName: "Dashboard",
-        order : ["Dashboard","CadastroLancamento","AdmLancamentos","Categorias","Plataformas","CadastroUsuarioAdm"],
-        unmountInactiveRoutes : true,
-        drawerPosition: "right",
-        drawerBackgroundColor: "#a60313",
-        drawerType: "slide",
-        drawerLockMode: "unlocked",
-        drawerWidth : "80%",
-        contentOptions: {
-            activeTintColor: "#F2EB12",
-            inactiveTintColor: "#FFF",
-            activeBackgroundColor: "#87020F",
-            activeLabelStyle : {
-                fontSize : 20,
-            },
-            inactiveLabelStyle : {
-                fontSize : 20,
-            }
+    }, {
+    initialRouteName: "Dashboard",
+    order: ["Dashboard", "CadastroLancamento", "AdmLancamentos", "Categorias", "Plataformas", "CadastroUsuarioAdm"],
+    // unmountInactiveRoutes : true,
+    drawerPosition: "right",
+    drawerBackgroundColor: "#a60313",
+    drawerType: "slide",
+    drawerLockMode: "unlocked",
+    drawerWidth: "80%",
+    contentOptions: {
+        activeTintColor: "#F2EB12",
+        inactiveTintColor: "#FFF",
+        activeBackgroundColor: "#87020F",
+        activeLabelStyle: {
+            fontSize: 20,
         },
-        contentComponent : customDrawer,
-    }
+        inactiveLabelStyle: {
+            fontSize: 20,
+        }
+    },
+    contentComponent: customDrawer,
+}
 )
 
 export default createAppContainer(createSwitchNavigator(
     {
-        // SplashScreen,
         AuthStack,
         DrawerNavigator,
         AdmDrawerNavigator,
         lancamentoScreen,
         editarScreen,
     }, {
-    initialRouteName : "AuthStack",
-    // initialRouteName: "SplashScreen",
+    initialRouteName: "AuthStack",
     // unmountInactiveRoutes : true,
 }
 ));

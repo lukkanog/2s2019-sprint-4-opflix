@@ -46,7 +46,6 @@ class AdmLancamentos extends Component {
     }
 
     _excluir = async(id, titulo) => {
-        // this.setState({exibindoModal : true});
 
         try {
             let token = await AsyncStorage.getItem("@opflix:token");
@@ -75,6 +74,11 @@ class AdmLancamentos extends Component {
         })
     }
 
+    _confirmarExclusao = () =>{
+        this.setState({exibindoModal : true});
+
+    }
+
     render() {
         return (
             <SafeAreaView>
@@ -97,37 +101,16 @@ class AdmLancamentos extends Component {
                 {/* FIM DO NAV */}
 
                 <Text style={styles.tituloPrincipal}>Lançamentos</Text>
-                
+
                 {/* <Modal
                     visible={this.state.exibindoModal}
                     animationType="fade"
-                    onRequestClose={() => this.setState({exibindoModal : false})}
-                    presentationStyle="formSheet"
-                >   
+                    onRequestClose={() => this.setState({ exibindoModal: false })}
+                    style={styles.confirmBox}
+                >
                     <Text>a</Text>
-                </Modal> */}
-                {/* ###################################################################################################################
-                #######################
-                #######################
-                #######################
-                #######################
-                ###################################################################################################################
-                #######################
-                #######################
-                #######################
-                #######################
-                #######################
-                #######################
-                ##############################################
-                #######################
-                #######################
-                #######################
-                #######################
-                #######################
-                #######################
-                #######################
-                ##########################################################################################################################################
-                ####################### */}
+                </Modal>  */}
+
                 
                 <FlatList
                     style={styles.lista}
@@ -162,6 +145,7 @@ class AdmLancamentos extends Component {
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         onPress={() => this._excluir(item.idLancamento, item.titulo)}
+                                        // onPress={() => this.setState({exibindoModal : true})}
                                     >
                                         {/* EXCLUIR */}
                                         <Image source={require("../../assets/img/excluir-icon.png")} style={styles.icone} />
@@ -284,7 +268,12 @@ const styles = StyleSheet.create({
         height : 35,
         width : 35,
         marginHorizontal : "5%"
+    },
+    confirmBox : {
+        width : 200,
+        height : 180,
     }
+    
 })
 
 export default AdmLancamentos;

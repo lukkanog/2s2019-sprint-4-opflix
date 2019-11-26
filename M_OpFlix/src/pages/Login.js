@@ -46,14 +46,17 @@ class Login extends Component{
             if (response.status === 200){
                 let token = response.data.token;
                 this._redirecionarParaMain(token);
-            }else if (response.status == 404){
+            }else if (response.status === 404){
                 this.setState({naoFoiEncontrado : true})
+                alert("Email ou senha incorretos.")
             }
         })
         .catch(error => {
             console.warn("erro : " + error)
-            if (error.status == 404){
+            if (error.status === 404){
                 this.setState({naoFoiEncontrado : true})
+                alert("Email ou senha incorretos.")
+
             }
         })
 

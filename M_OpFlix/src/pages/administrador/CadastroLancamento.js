@@ -192,11 +192,12 @@ class CadastroLancamento extends Component {
                 <Text style={styles.tituloPrincipal}>Cadastrar novo lançamento</Text>
 
                 {/* form */}
-                <View>
+                <View style={styles.form}>
 
                     <View>
                         <Text>Título</Text>
                         <TextInput
+                        style={styles.input}
                             maxLength={100}
                             onChangeText={titulo => this.setState({ titulo })}
                         />
@@ -205,6 +206,7 @@ class CadastroLancamento extends Component {
                     <View>
                         <Text>Tipo do lançamento</Text>
                         <Picker
+                            style={styles.input}
                             onValueChange={idTipoLancamento => this.setState({ idTipoLancamento })}
                             selectedValue={this.state.idTipoLancamento == null ? null : this.state.idTipoLancamento}
                         >
@@ -223,6 +225,7 @@ class CadastroLancamento extends Component {
                     <View>
                         <Text>Plataforma</Text>
                         <Picker
+                        style={styles.input}
                             onValueChange={idPlataforma => this.setState({ idPlataforma })}
                             // mode="dropdown"
                             selectedValue={this.state.idPlataforma == null ? null : this.state.idPlataforma}
@@ -243,6 +246,7 @@ class CadastroLancamento extends Component {
                     <View>
                         <Text>Categoria</Text>
                         <Picker
+                        style={styles.input}
                             onValueChange={idCategoria => this.setState({ idCategoria })}
                             selectedValue={this.state.idCategoria == null ? null : this.state.idCategoria}
                         >
@@ -261,6 +265,7 @@ class CadastroLancamento extends Component {
                     <View>
                         <Text>Duração (em minutos)</Text>
                         <TextInput
+                        style={styles.input}
                             keyboardType="numeric"
                             onChangeText={duracao => this.setState({ duracao })}
                             maxLength={8}
@@ -286,9 +291,7 @@ class CadastroLancamento extends Component {
                                     left: 0,
                                     top: 4,
                                     marginLeft: 0,
-
                                 },
-
                             }}
                         />
                     </View>
@@ -296,13 +299,14 @@ class CadastroLancamento extends Component {
                     <View>
                         <Text>Sinopse</Text>
                         <TextInput
+                        style={styles.input}
                             onChangeText={sinopse => this.setState({ sinopse })}
                         />
                     </View>
 
                 </View>
-                <TouchableOpacity onPress={this._cadastrarLancamento}>
-                    <Text>Cadastrar</Text>
+                <TouchableOpacity style={styles.submit} onPress={this._cadastrarLancamento}>
+                    <Text style={styles.submitText}>Cadastrar</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -354,68 +358,31 @@ styles = StyleSheet.create({
         tintColor: "#000",
         // paddingVertical 
     },
-    boxLancamento: {
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: "#707070",
-        width: "90%",
-        padding: 10,
-        marginVertical: 5,
-        marginHorizontal: 20,
-        // marginRight : 100,
+    form :{
+        width : "85%",
+        marginLeft :"7.5%",
+        justifyContent : "space-around",
+        minHeight : 450,
     },
-
-    tituloLancamento: {
-        fontWeight: "bold",
-        fontSize: 25,
-        textAlign: "center",
-        marginBottom: 5,
+    input :{
+        borderColor : "#000",
+        borderWidth : 1,
+        height : 30,
     },
-    flexBoxLancamento: {
-        // flexDirection: "column",
-        // justifyContent: "space-between",
-        // flexWrap: "nowrap",
+    submit : {
+        width : "85%",
+        backgroundColor : "#a60313",
+        marginLeft :"7.5%",
+        textAlign : "center",
+        justifyContent : "center",
+        alignItems : "center"
     },
-    botoes: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around",
-        // width: "100%",
-        // backgroundColor : "#a60313",
-        paddingTop: 15,
-        borderTopWidth: 1,
-        marginTop: 10,
-        borderTopColor: "#D2D1D1",
-    },
-    data: {
-        color: "#11A7F2",
-        fontSize: 22,
-        fontWeight: "bold",
-    },
-    flexTexto: {
-        flexDirection: "row",
-    },
-    textoBold: {
-        fontWeight: "bold",
-        fontSize: 18,
-    },
-    caracteristica: {
-        fontSize: 18,
-    },
-    boxIcon: {
-        textAlign: "right",
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        backgroundColor: "#a60313",
-        borderRadius: 15,
-        width: "90%",
-    },
-    iconCadastrar: {
-        height: 35,
-        width: 35,
-        marginHorizontal: "5%"
+    submitText : {
+        color : "#F2EB12",
+        fontWeight : "700",
+        fontSize : 20,
     }
+
 })
 
 export default CadastroLancamento;
