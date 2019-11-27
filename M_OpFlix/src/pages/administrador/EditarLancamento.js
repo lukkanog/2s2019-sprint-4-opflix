@@ -217,11 +217,12 @@ class EditarLancamento extends Component {
                 </View>
 
                 {/* form */}
-                <View>
+                <View style={styles.form}>
 
                     <View>
                         <Text>Título</Text>
                         <TextInput
+                            style={styles.input}
                             defaultValue={this.state.lancamento.titulo}
                             maxLength={100}
                             onChangeText={titulo => this.setState({ titulo })}
@@ -231,6 +232,7 @@ class EditarLancamento extends Component {
                     <View>
                         <Text>Tipo do lançamento</Text>
                         <Picker
+                            style={styles.input}
                             defaultValue={this.state.lancamento.idTipoLancamento}
                             onValueChange={idTipoLancamento => this.setState({ idTipoLancamento })}
                         >
@@ -249,6 +251,7 @@ class EditarLancamento extends Component {
                     <View>
                         <Text>Plataforma</Text>
                         <Picker
+                            style={styles.input}
                             defaultValue={this.state.lancamento.idPlataforma}
                             onValueChange={idPlataforma => this.setState({ idPlataforma })}
                         >
@@ -267,6 +270,7 @@ class EditarLancamento extends Component {
                     <View>
                         <Text>Categoria</Text>
                         <Picker
+                            style={styles.input}
                             defaultValue={this.state.lancamento.idCategoria}
                             onValueChange={idCategoria => this.setState({ idCategoria })}
                         >
@@ -285,6 +289,7 @@ class EditarLancamento extends Component {
                     <View>
                         <Text>Duração (em minutos)</Text>
                         <TextInput
+                            style={styles.input}
                             defaultValue={JSON.stringify(this.state.lancamento.duracao)}
                             keyboardType="numeric"
                             onChangeText={duracao => this.setState({ duracao })}
@@ -321,14 +326,15 @@ class EditarLancamento extends Component {
                     <View>
                         <Text>Sinopse</Text>
                         <TextInput
+                            style={styles.input}
                             defaultValue={this.state.lancamento.sinopse}
                             onChangeText={sinopse => this.setState({ sinopse })}
                         />
                     </View>
 
                 </View>
-                <TouchableOpacity onPress={this._editarLancamento}>
-                    <Text>Salvar alterações</Text>
+                <TouchableOpacity style={styles.submit} onPress={this._editarLancamento}>
+                    <Text style={styles.submitText}>Salvar alterações</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         )
@@ -345,9 +351,24 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         height: 70,
     },
+    seta: {
+        height: 30,
+        width: 30,
+        transform: [{ rotate: "90deg" }],
+        tintColor: "#999999",
+    },
     logo: {
         flexDirection: "row",
         alignItems: "center",
+    }, flexRow: {
+        paddingVertical: 10,
+        alignSelf: "center",
+        width: "90%",
+        flexDirection: "row",
+        alignItems: "center",
+        borderBottomWidth: 3,
+        borderColor: "#A60313",
+        marginBottom: 5,
     },
     textoLogo: {
         color: "#fff",
@@ -359,7 +380,6 @@ const styles = StyleSheet.create({
         height: 35,
         zIndex: 1000,
     },
-
     tituloPrincipal: {
         textAlign: "center",
         fontWeight: "bold",
@@ -368,33 +388,39 @@ const styles = StyleSheet.create({
         width: "90%",
 
     },
-    seta: {
+    lista: {
+        height: Dimensions.get("window").height - 180,
+    },
+    icone: {
         height: 30,
         width: 30,
-        transform: [{ rotate: "90deg" }],
-        tintColor: "#999999",
+        tintColor: "#000",
+        // paddingVertical 
     },
-    data: {
-        color: "#11A7F2",
-        fontSize: 25,
-        fontWeight: "bold",
-        alignSelf: "flex-start",
-        marginLeft: "5%"
+    form: {
+        width: "85%",
+        marginLeft: "7.5%",
+        justifyContent: "space-around",
+        minHeight: 450,
     },
-    flexRow: {
-        paddingVertical: 10,
-        alignSelf: "center",
-        width: "90%",
-        flexDirection: "row",
-        alignItems: "center",
-        borderBottomWidth: 3,
-        borderColor: "#A60313",
-        marginBottom: 5,
+    input: {
+        borderColor: "#000",
+        borderWidth: 1,
+        height: 30,
     },
-    textoBold: {
-        fontWeight: "bold",
+    submit: {
+        width: "85%",
+        backgroundColor: "#a60313",
+        marginLeft: "7.5%",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    submitText: {
+        color: "#F2EB12",
+        fontWeight: "700",
         fontSize: 20,
-    },
+    }
 
 })
 

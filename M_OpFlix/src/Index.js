@@ -85,7 +85,7 @@ const DrawerNavigator = createDrawerNavigator(
 
     }, {
     initialRouteName: "Home",
-    // unmountInactiveRoutes : true,
+    unmountInactiveRoutes : true,
     drawerPosition: "right",
     drawerBackgroundColor: "#a60313",
     drawerType: "slide",
@@ -153,7 +153,7 @@ const AdmDrawerNavigator = createDrawerNavigator(
     }, {
     initialRouteName: "Dashboard",
     order: ["Dashboard", "CadastroLancamento", "AdmLancamentos", "Categorias", "Plataformas", "CadastroUsuarioAdm"],
-    // unmountInactiveRoutes : true,
+    unmountInactiveRoutes : true,
     drawerPosition: "right",
     drawerBackgroundColor: "#a60313",
     drawerType: "slide",

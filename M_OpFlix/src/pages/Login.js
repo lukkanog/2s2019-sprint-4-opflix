@@ -25,12 +25,12 @@ class Login extends Component{
 
 
             //PARA ENTRAR COMO ADM:
-            email : "erik@email.com",
-            senha : "123456",
+            // email : "erik@email.com",
+            // senha : "123456",
 
             //PARA ENTRAR COMO USUARIO COMUM:
-            // email : "lucas@email.com",
-            // senha : "123456",
+            email : "lucas@email.com",
+            senha : "123456",
 
             naoFoiEncontrado : false,
         }
@@ -115,7 +115,7 @@ class Login extends Component{
                             </TouchableOpacity>
                             <Text style={styles.ou}>ou</Text>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate("Cadastro")}>
-                                <Text>Cadastre-se</Text>
+                                <Text style={styles.btnCadastreSe}>Cadastre-se</Text>
                             </TouchableOpacity>
 
                             {this.state.naoFoiEncontrado === true ?
@@ -174,6 +174,11 @@ const styles = StyleSheet.create({
     ou : {
         color : "#F2EB12",
         fontSize : 15,
+    },
+    btnCadastreSe:{
+        color : "#F2EB12",
+        fontSize : 20,
+        fontWeight : "bold",
     }
 })
 export default Login;

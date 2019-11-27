@@ -31,7 +31,7 @@ class Favoritos extends Component {
             let token = await AsyncStorage.getItem("@opflix:token");
 
             if (token !== null) {
-                fetch("http://192.168.4.16:5000/api/favoritos/", {
+                await fetch("http://192.168.4.16:5000/api/favoritos/", {
                     headers: {
                         "Authorization": "Bearer " + token,
                     }

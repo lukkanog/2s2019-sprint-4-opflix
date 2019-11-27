@@ -18,26 +18,55 @@ class Main extends Component {
         this.state = {
             lancamentos: [],
             favoritos: [],
-
             update: false,
+            contagem: 0,
+            novoValor: ''
         }
     }
 
     componentDidMount() {
-
         this._carregarLancamentos();
         this._carregarFavoritos();
+        // this.setState({update : false})
     }
-
-    // componentDidUpdate(){
-    //     this._carregarFavoritos();
-    // }
 
     _carregarLancamentos = async () => {
         await fetch("http://192.168.4.16:5000/api/lancamentos")
             .then(resposta => resposta.json())
             .then(data => this.setState({ lancamentos: data }))
             .catch(error => alert(error))
+
+    }
+
+    _recarregar = async (itens) => {
+        alert(itens)
+
+    }
+
+    // shouldComponentUpdate(prevState) {
+    //     if (prevState.favoritos != this.state.favoritos) {
+    //         return true;
+    //     }        
+    //     return false;
+
+    //     // if(this.state.update == true)
+    //     //     return true;
+    //     // return false;
+
+    //     // if (this.state.contagem < 2 && this.state.contagem > 0){
+    //     //     return true;
+    //     // }
+    //     // return false;
+    // }
+
+
+
+    componentDidUpdate(prevProps, prevState) {
+        console.warn(prevState.favoritos)
+
+        // if(prevState.favoritos != this.state.favoritos){
+        // this._carregarFavoritos();
+        // }
 
     }
 
@@ -56,6 +85,7 @@ class Main extends Component {
                         this.setState({ favoritos: data });
                     })
                     .catch(error => alert(error))
+
 
             }
         } catch (error) {
@@ -83,18 +113,6 @@ class Main extends Component {
         return (dia + "/" + mes + "/" + ano);
     }
 
-    _adicionarAoEstadoFavoritos = (id) => {
-        let lista = this.state.lancamentos;
-        let lancamento = lista.filter(item => {
-            return item.idLancamento == id
-        });
-        let listaFavoritos = this.state.favoritos;
-        listaFavoritos.push(lancamento);
-        this.setState({ favoritos: listaFavoritos });
-        console.warn(listaFavoritos)
-    }
-
-
     _favoritar = async (id) => {
         try {
             let token = await AsyncStorage.getItem("@opflix:token");
@@ -102,7 +120,7 @@ class Main extends Component {
             if (token != null) {
                 if (this._foiFavoritado(id) === false) {
 
-                    fetch("http://192.168.4.16:5000/api/favoritos", {
+                    await fetch("http://192.168.4.16:5000/api/favoritos", {
                         method: "POST",
                         headers: {
                             "Authorization": "Bearer " + token,
@@ -112,12 +130,18 @@ class Main extends Component {
                             idLancamento: id
                         })
                     })
-                        .then(() => {
-                            this._carregarFavoritos();
-                            this._carregarLancamentos();
-
+                        .then(resposta => {
+                            return resposta
                         })
-                        .then(this._adicionarAoEstadoFavoritos(id))
+                        .then(data => {
+                            this.setState({ novoValor: 0 }, () => {
+                                this._carregarFavoritos();
+                                this._carregarLancamentos();
+                            });
+                            // this._carregarFavoritos();
+                            // this._carregarLancamentos();
+                            // this._adicionarAoEstadoFavoritos(id)
+                        })
                         .catch(error => alert(error))
                 }
             }
@@ -144,20 +168,13 @@ class Main extends Component {
                             this._carregarFavoritos();
                             this._carregarLancamentos();
                         })
-                        .then(this.forceUpdate())
+                        // .then(this.forceUpdate())
                         .catch(error => alert(error))
                 }
             }
         } catch (error) {
             alert(error)
         }
-    }
-
-
-    _mudarDeCor = (event) => {
-        event.target.style = { tintColor: '#A6' };
-        this.setState({ update: true });
-        this.setState({ update: false });
     }
 
 
@@ -227,7 +244,7 @@ class Main extends Component {
                                                 <Image
                                                     style={styles.iconeFavoritar}
                                                     source={require("../assets/img/estrela.png")}
-                                                    onPress={() => this._mudarDeCor}
+                                                // onPress={() => this._mudarDeCor}
                                                 />
                                             </TouchableOpacity>
                                         }

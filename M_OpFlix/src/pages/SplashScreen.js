@@ -43,9 +43,14 @@ class SplashScreen extends Component {
             if (token == undefined) {
                 this.props.navigation.navigate("Login");
             }
+
             var user = JwtDecode(token)
 
-            console.warn(user)
+            var dataAtual = Date.now().valueOf() / 1000;
+            if (user.exp < dataAtual) {
+                this.props.navigation.navigate("Login");
+            }
+            
             switch (user.permissao) {
                 case 'ADMINISTRADOR':
                     this.props.navigation.navigate("AdmDrawerNavigator");
