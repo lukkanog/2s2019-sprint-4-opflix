@@ -8,7 +8,8 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    Dimensions
 } from "react-native";
 
 
@@ -115,6 +116,7 @@ class Favoritos extends Component {
 
                 <View >
                     <FlatList
+                    style={styles.lista}
                         data={this.state.favoritos}
                         keyExtractor={item => item.idLancamento.toString()}
                         renderItem={({ item }) => (
@@ -203,7 +205,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     lista: {
-
+        height: Dimensions.get("window").height - 180,
     },
     boxLancamento: {
         borderWidth: 1,
@@ -274,10 +276,10 @@ const styles = StyleSheet.create({
     },
     textoBold: {
         fontWeight: "bold",
-        fontSize : 18,
+        fontSize: 18,
     },
-    caracteristica : {
-        fontSize : 18,
+    caracteristica: {
+        fontSize: 18,
     }
 })
 

@@ -61,21 +61,21 @@ class Main extends Component {
 
 
 
-    componentDidUpdate(prevProps, prevState) {
-        console.warn(prevState.favoritos)
+    // componentDidUpdate(prevProps, prevState) {
+    //     console.warn(prevState.favoritos)
 
-        // if(prevState.favoritos != this.state.favoritos){
-        // this._carregarFavoritos();
-        // }
+    //     // if(prevState.favoritos != this.state.favoritos){
+    //     // this._carregarFavoritos();
+    //     // }
 
-    }
+    // }
 
     _carregarFavoritos = async () => {
         try {
             let token = await AsyncStorage.getItem("@opflix:token");
 
             if (token !== null) {
-                fetch("http://192.168.4.16:5000/api/favoritos/ids", {
+                fetch("http://192.168.4.16:5000/api/favoritos/", {
                     headers: {
                         "Authorization": "Bearer " + token,
                     }
@@ -133,14 +133,13 @@ class Main extends Component {
                         .then(resposta => {
                             return resposta
                         })
-                        .then(data => {
-                            this.setState({ novoValor: 0 }, () => {
-                                this._carregarFavoritos();
-                                this._carregarLancamentos();
-                            });
-                            // this._carregarFavoritos();
-                            // this._carregarLancamentos();
-                            // this._adicionarAoEstadoFavoritos(id)
+                        .then(data => { 
+                            this._carregarFavoritos();
+                            this._carregarLancamentos();
+
+                            this._adicionarAoEstadoFavoritos(id)
+                           
+                            // this.props.navigation.navigate("Favoritos")
                         })
                         .catch(error => alert(error))
                 }
@@ -148,6 +147,14 @@ class Main extends Component {
         } catch (error) {
             alert(error)
         }
+    }
+
+    _adicionarAoEstadoFavoritos = (id) => {
+        var lancamento = this._buscarLancamentoPorId(id);
+
+        this.setState((prevState, props) => ({
+            favoritos: this.state.favoritos.concat(lancamento)
+        }));
     }
 
 
@@ -167,6 +174,8 @@ class Main extends Component {
                         .then(() => {
                             this._carregarFavoritos();
                             this._carregarLancamentos();
+                            this._removerDoEstadoFavoritos(id);
+
                         })
                         // .then(this.forceUpdate())
                         .catch(error => alert(error))
@@ -177,6 +186,21 @@ class Main extends Component {
         }
     }
 
+    _removerDoEstadoFavoritos = (id) => {
+        let lista = this.state.favoritos;
+        lista = lista.filter(element => {
+            return element.idLancamento !== id;
+        })
+        this.setState({ favoritos: lista })
+    }
+
+
+    _buscarLancamentoPorId = (idLancamento) => {
+        let lancamento = this.state.lancamentos.find(element => {
+            return element.idLancamento == idLancamento;
+        });
+        return lancamento;
+    }
 
 
     render() {
